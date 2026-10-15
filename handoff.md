@@ -39,9 +39,9 @@
 - Obsidian Vault 筆記位於 `G:\我的雲端硬碟\0001_obsidian_vault\kuei_obsidian\`，可透過本地原生讀寫或 Obsidian 桌面版雙向同步。
 
 ## 🕐 最後更新
-- 時間：2026-10-15 16:05
+- 時間：2026-10-15 16:16
 - 更新者：Antigravity @ DESKTOP-HS4CHCD
-- Git push：✅ 已推（L3 升級完成）
+- Git push：✅ 已推（commit 38ac742，main 最新）
 
 
 
