@@ -21,6 +21,7 @@
 - [x] 階段六：編譯 `index.html` 旗艦單檔離線互動探案平台（含 3 大實驗室、電子白板與免聯網 Base64 下載）
 - [x] 階段七：驗收測試與發布打包（產生 `download/`、`start_qr_server.py` 與 `網站上傳包.zip`）
 - [x] 階段八：擴充 5 大對數線上對戰電玩競技場（`games_module.py`，骨牌連鎖、密室逃脫、迷宮尋路、射擊防禦、芮氏天平與 Web Audio API）
+- [x] 階段九：擴充阿笠博士 7 大動態數理實驗室（`lab_experiments_module.py`，底數形變、地震能量、指對鏡射、計算尺、分貝儀、pH 色階、首尾顯微鏡，分頁滿版無卷軸）
 
 ## 資料夾結構
 ```
@@ -33,7 +34,7 @@
 ├── 2-3_對數及其運算的意義_學生學習單.docx                 # JIS B4 橫向雙欄學生手寫實作單
 ├── 2-3_對數及其運算的意義_教師解答版.docx                 # JIS B4 橫向雙欄教師紅字解答版
 ├── 2-3_對數及其運算的意義_全套65張圖解學習卡.pdf           # A4 橫向向量列印版全套 65 張學習卡
-├── index.html                                          # 單檔 100% 離線旗艦數位互動探案平台（含 5 大電玩競技場）
+├── index.html                                          # 單檔 100% 離線旗艦數位互動探案平台（含 7 大實驗室與 5 大競技場）
 ├── cards_printable.html                                # 高畫質滿版列印 HTML
 ├── 2-3_對數及其運算的意義_網站上傳包.zip                  # 包含 index.html 與 download/ 的發布包
 ├── download/                                           # 離線下載專欄資源實體目錄
@@ -47,6 +48,7 @@
 │   ├── interactive_cards_data.py                       # 65 題正面自檢題庫與 6 階段闖關考核
 │   ├── interactive_js_module.py                        # 前端核心邏輯庫（三大實驗室、電子白板、密碼驗證）
 │   ├── games_module.py                                 # 5 大對戰遊戲模組（消消樂、密室、迷宮、射擊、天平與 Web Audio）
+│   ├── lab_experiments_module.py                      # 阿笠博士 7 大動態數理實驗室（分頁式滿版無卷軸設計）
 │   ├── docx_b64.py                                     # 內嵌 Base64 檔案資料庫（三份 Word 原生卷宗）
 │   ├── generate_lesson_plan_docx.py                    # JIS B4 直式單欄教案 OMML 生成腳本
 │   ├── generate_landscape_worksheets.py                # JIS B4 橫向雙欄學習單 OMML 生成器

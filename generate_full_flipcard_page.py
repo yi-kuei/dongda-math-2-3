@@ -17,6 +17,7 @@ import cards_part2
 import interactive_cards_data
 import interactive_js_module
 import games_module
+import lab_experiments_module
 import docx_b64
 
 def generate_index_html():
@@ -556,51 +557,8 @@ def generate_index_html():
     </div>
   </div>
 
-  <!-- 彈窗模組 3：動態幾何圖形實驗室 -->
-  <div id="lab-modal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl w-full max-w-4xl max-h-[85vh] flex flex-col shadow-2xl border border-slate-200 overflow-hidden">
-      <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between bg-emerald-50">
-        <div class="flex items-center gap-2">
-          <i class="fa-solid fa-flask text-emerald-600 text-lg"></i>
-          <h3 class="font-black text-slate-800 text-base">單元專屬動態幾何實驗室：對數曲線與芮氏地震能量尺</h3>
-        </div>
-        <div class="flex items-center gap-2">
-          <button onclick="closeLabModal()" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all" title="返回學習卡總覽 (ESC)">
-            <i class="fa-solid fa-arrow-left"></i>
-            <span>返回總覽 (ESC)</span>
-          </button>
-        </div>
-      </div>
-
-      <div class="p-6 overflow-y-auto space-y-6">
-        <!-- 實驗 1：對數曲線與底數互動實驗室 -->
-        <div class="bg-slate-50 rounded-xl p-5 border border-slate-200">
-          <h4 class="font-bold text-slate-800 text-sm mb-3">實驗一：對數函數 $y = \\log_a(x)$ 底數動態形變實驗</h4>
-          <div class="mb-4">
-            <label class="text-xs font-bold text-slate-600">
-              底數 a 值：<span id="lab-base-val" class="text-indigo-600 font-mono font-black text-sm">2.0</span>
-              <span class="text-slate-400 font-normal ml-2">(拖曳滑桿觀察 a &gt; 1 遞增 與 0 &lt; a &lt; 1 遞減曲線形變)</span>
-            </label>
-            <input type="range" id="lab-base-slider" min="0.2" max="5.0" step="0.1" value="2.0" class="w-full mt-1 accent-indigo-600">
-          </div>
-          <div id="lab-curve-svg-container" class="p-3 bg-white rounded-lg border border-slate-200 flex items-center justify-center min-h-[240px]"></div>
-        </div>
-
-        <!-- 實驗 2：地震規模與能量對數尺模擬器 -->
-        <div class="bg-slate-50 rounded-xl p-5 border border-slate-200">
-          <h4 class="font-bold text-slate-800 text-sm mb-3">實驗二：芮氏地震規模與能量對數尺（$\\log_{{10}} E = 11.8 + 1.5M$）</h4>
-          <div class="mb-4">
-            <label class="text-xs font-bold text-slate-600">
-              芮氏地震規模 M：<span id="lab-eq-val" class="text-rose-600 font-mono font-black text-sm">5.0</span>
-              <span class="text-slate-400 font-normal ml-2">(拖曳觀察地震釋放能量呈指數級幾何暴增)</span>
-            </label>
-            <input type="range" id="lab-eq-slider" min="3.0" max="9.0" step="0.1" value="5.0" class="w-full mt-1 accent-rose-600">
-          </div>
-          <div id="lab-eq-result" class="p-4 bg-white rounded-lg border border-slate-200 text-center"></div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!-- 彈窗模組 3：阿笠博士 7 大動態數理實驗室 -->
+  {lab_experiments_module.LAB_MODAL_HTML}
 
   <!-- 彈窗模組 3.5：名偵探解密口訣錦囊 (速記圖形與心法) -->
   <div id="cheatsheet-modal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
@@ -877,6 +835,10 @@ def generate_index_html():
 
   <script>
     {games_module.GAMES_JS_CODE}
+  </script>
+
+  <script>
+    {lab_experiments_module.LAB_JS_CODE}
   </script>
 </body>
 </html>
