@@ -15,11 +15,11 @@
 ## 目標與路線圖
 - [x] 階段一：專案基礎建設與 SOP 標準規範確立（SOP v4.0 確立）
 - [x] 階段二：單元教材剖析與課程教學包規劃書（完成 65 案知識節點、神技口訣與 6 階段闖關規劃）
-- [ ] 階段三：建置卡片資料庫與互動模組（`cards_part1.py`、`cards_part2.py`、`interactive_cards_data.py`）
-- [ ] 階段四：產出 JIS B4 微軟原生 OMML 學習單與四節課教案（`.docx` 與 Base64 編碼）
-- [ ] 階段五：編譯 A4 橫向全套圖解學習卡向量列印版 PDF
-- [ ] 階段六：編譯 `index.html` 旗艦單檔離線互動探案平台
-- [ ] 階段七：驗收測試與發布打包（產生 `download/` 與網站上傳包 `.zip`）
+- [x] 階段三：建置卡片資料庫與互動模組（`cards_part1.py`、`cards_part2.py`、`interactive_cards_data.py`）
+- [x] 階段四：產出 JIS B4 微軟原生 OMML 學習單與四節課教案（`.docx` 與 Base64 編碼 `docx_b64.py`）
+- [x] 階段五：編譯 A4 橫向全套圖解學習卡向量列印版 PDF（`全套65張圖解學習卡.pdf`）
+- [x] 階段六：編譯 `index.html` 旗艦單檔離線互動探案平台（含 3 大實驗室、電子白板與免聯網 Base64 下載）
+- [x] 階段七：驗收測試與發布打包（產生 `download/`、`start_qr_server.py` 與 `網站上傳包.zip`）
 
 ## 資料夾結構
 ```
@@ -29,9 +29,30 @@
 ├── 2-3_對數及其運算的意義_課程教學包規劃書.md              # 課程教學大綱與 65 案架構規劃
 ├── 2-3_對數及其運算的意義_四節課教學計畫與教案.md          # 四節課（200分鐘）教案 Markdown 原稿
 ├── 2-3_對數及其運算的意義_四節課教學計畫與教案.docx        # JIS B4 直式單欄微軟原生 OMML 教案文件
-├── generate_lesson_plan_docx.py                        # JIS B4 直式單欄教案 OMML 生成腳本
+├── 2-3_對數及其運算的意義_學生學習單.docx                 # JIS B4 橫向雙欄學生手寫實作單
+├── 2-3_對數及其運算的意義_教師解答版.docx                 # JIS B4 橫向雙欄教師紅字解答版
+├── 2-3_對數及其運算的意義_全套65張圖解學習卡.pdf           # A4 橫向向量列印版全套 65 張學習卡
+├── index.html                                          # 單檔 100% 離線旗艦數位互動探案平台
+├── cards_printable.html                                # 高畫質滿版列印 HTML
+├── 2-3_對數及其運算的意義_網站上傳包.zip                  # 包含 index.html 與 download/ 的發布包
 ├── download/                                           # 離線下載專欄資源實體目錄
-│   └── 2-3_對數及其運算的意義_四節課教學計畫與教案.docx
+│   ├── 2-3_對數及其運算的意義_學生學習單.docx
+│   ├── 2-3_對數及其運算的意義_教師解答版.docx
+│   ├── 2-3_對數及其運算的意義_四節課教學計畫與教案.docx
+│   └── 2-3_對數及其運算的意義_全套65張圖解學習卡.pdf
+├── 核心建置 Python 程式庫：
+│   ├── cards_part1.py                                  # CASE 01~42 圖解卡資料集
+│   ├── cards_part2.py                                  # CASE 43~65 圖解卡資料集
+│   ├── interactive_cards_data.py                       # 65 題正面自檢題庫與 6 階段闖關考核
+│   ├── interactive_js_module.py                        # 前端核心邏輯庫（三大實驗室、電子白板、密碼驗證）
+│   ├── docx_b64.py                                     # 內嵌 Base64 檔案資料庫（三份 Word 原生卷宗）
+│   ├── generate_lesson_plan_docx.py                    # JIS B4 直式單欄教案 OMML 生成腳本
+│   ├── generate_landscape_worksheets.py                # JIS B4 橫向雙欄學習單 OMML 生成器
+│   ├── generate_cards_pdf.py                           # Edge Headless 高解析 PDF 編譯器
+│   ├── generate_full_flipcard_page.py                  # index.html 單檔平台編譯器
+│   ├── package_for_web.py                              # 發布打包與 download/ 歸檔腳本
+│   └── start_qr_server.py                              # 手機平板掃碼連線伺服器
+├── 啟動手機掃碼連線伺服器.bat                            # Windows 雙擊一鍵啟動連線腳本
 ├── AGENTS.md                                           # 專案藍圖（本檔）
 ├── handoff.md                                          # 跨 Agent/電腦交接記錄檔
 └── 技術高中東大版數學製作流程 SOP.md                      # 技術高中東大版數學製作流程標準說明書 (v4.0)
