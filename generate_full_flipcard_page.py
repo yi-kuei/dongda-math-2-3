@@ -16,6 +16,7 @@ import cards_part1
 import cards_part2
 import interactive_cards_data
 import interactive_js_module
+import games_module
 import docx_b64
 
 def generate_index_html():
@@ -140,6 +141,9 @@ def generate_index_html():
       </div>
 
       <div class="flex items-center gap-2 sm:gap-3">
+        <button onclick="openGameArenaModal()" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-red-600 via-amber-500 to-yellow-400 text-slate-950 hover:brightness-110 text-xs font-black transition-all flex items-center gap-1.5 shadow-md shadow-red-900/40 animate-pulse">
+          <i class="fa-solid fa-gamepad text-slate-950"></i> <span class="hidden sm:inline">5大對戰競技場</span>
+        </button>
         <button onclick="openCheatSheetModal()" class="px-3 py-1.5 rounded-xl bg-amber-400 text-slate-950 hover:bg-amber-300 text-xs font-black transition-all flex items-center gap-1.5 shadow-md shadow-amber-400/20">
           <i class="fa-solid fa-scroll text-red-600"></i> <span class="hidden sm:inline">解密口訣錦囊</span>
         </button>
@@ -178,6 +182,9 @@ def generate_index_html():
 
           <!-- 資源下載快捷列 (SOP v4.0 純化旗艦四大標竿按鈕) -->
           <div class="flex flex-wrap items-center gap-3">
+            <button onclick="openGameArenaModal()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-red-600 via-amber-500 to-yellow-400 hover:brightness-110 text-slate-950 font-black text-xs sm:text-sm shadow-lg shadow-red-950 transition-all flex items-center gap-2 border border-amber-400">
+              <i class="fa-solid fa-gamepad text-slate-950"></i> 柯南 5 大線上對戰遊戲館
+            </button>
             <button onclick="downloadStudentDocx()" class="px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-slate-950 font-bold text-xs sm:text-sm shadow-md shadow-amber-950 transition-all flex items-center gap-2 border border-amber-400">
               <i class="fa-solid fa-file-lines text-slate-950"></i> 偵探搜查實作單 (B4 Word)
             </button>
@@ -851,6 +858,9 @@ def generate_index_html():
     </div>
   </div>
 
+  <!-- 彈窗模組 7：5大對數對戰電玩競技場 -->
+  {games_module.GAMES_MODAL_HTML}
+
   <!-- 嵌入資料與全域邏輯 -->
   <script>
     window.CARDS_DATA = {cards_json};
@@ -863,6 +873,10 @@ def generate_index_html():
 
   <script>
     {interactive_js_module.INTERACTIVE_JS_CODE}
+  </script>
+
+  <script>
+    {games_module.GAMES_JS_CODE}
   </script>
 </body>
 </html>
