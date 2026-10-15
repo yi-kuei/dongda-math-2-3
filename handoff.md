@@ -29,8 +29,9 @@
 - 音效由瀏覽器 Web Audio API 合成，初次點擊畫面即可啟動。
 
 ## 🕐 最後更新
-- 時間：2026-10-15 09:16
+- 時間：2026-10-15 09:21
 - 更新者：Antigravity @ DESKTOP-HS4CHCD
-- Git push：✅ 已推（commit: 38aa9f5）
+- Git push：✅ 已推（commit: 40e2449 - 遊戲競技場版面緊湊無卷軸化）
+
 
 
