@@ -612,7 +612,10 @@
             </span>
           </div>
           <input type="range" id="lab-base-slider" min="0.2" max="5.0" step="0.1" value="2.0" class="w-full accent-indigo-600 cursor-pointer">
-          <div id="lab-curve-svg-container" class="flex-1 p-2 bg-white rounded-xl border border-slate-200 flex items-center justify-center min-h-0 shadow-inner"></div>
+          <div id="lab-curve-svg-container" class="flex-1 p-2 bg-white rounded-xl border border-slate-200 flex items-center justify-center min-h-0 shadow-inner relative overflow-hidden"></div>
+          
+          <!-- 底部：獨立即時分析卡片（完全移出畫布，絕不遮擋圖形） -->
+          <div id="lab-curve-info-card" class="bg-white px-3 sm:px-4 py-2 rounded-xl border border-slate-200 shadow-xs flex flex-wrap items-center justify-between gap-2 shrink-0"></div>
         </div>
 
         <!-- ========================================== -->
@@ -4187,18 +4190,19 @@ function switchLabTab(tabIdx) {
 function renderLogCurveLab() {
     const container = document.getElementById('lab-curve-svg-container');
     const valText = document.getElementById('lab-base-val');
+    const infoCard = document.getElementById('lab-curve-info-card');
     if (valText) valText.innerText = currentLabBase.toFixed(1);
     if (!container) return;
 
     const a = currentLabBase;
     const isIncreasing = (a > 1);
     const points = [];
-    const originX = 50;
+    const originX = 60;
     const originY = 120;
-    const scaleX = 35;
-    const scaleY = 35;
+    const scaleX = 38;
+    const scaleY = 38;
 
-    for (let x = 0.15; x <= 8.5; x += 0.15) {
+    for (let x = 0.12; x <= 8.8; x += 0.08) {
         const y = Math.log(x) / Math.log(a);
         const svgX = originX + x * scaleX;
         const svgY = originY - y * scaleY;
@@ -4208,34 +4212,68 @@ function renderLogCurveLab() {
     }
     const pathD = points.length > 0 ? `M ${points.join(' L ')}` : '';
 
+    // 生成精緻背景網格與坐標刻度
+    let gridLines = '';
+    for (let gx = 1; gx <= 8; gx++) {
+        const xPos = originX + gx * scaleX;
+        gridLines += `<line x1="${xPos}" y1="18" x2="${xPos}" y2="225" stroke="#f1f5f9" stroke-width="1"/>`;
+        gridLines += `<text x="${xPos}" y="${originY + 14}" text-anchor="middle" class="text-[9px] fill-slate-400 font-mono">${gx}</text>`;
+    }
+    for (let gy = -2; gy <= 2; gy++) {
+        if (gy === 0) continue;
+        const yPos = originY - gy * scaleY;
+        gridLines += `<line x1="25" y1="${yPos}" x2="400" y2="${yPos}" stroke="#f1f5f9" stroke-width="1"/>`;
+        gridLines += `<text x="${originX - 7}" y="${yPos + 3}" text-anchor="end" class="text-[9px] fill-slate-400 font-mono">${gy}</text>`;
+    }
+
+    // 畫布內部 100% 純淨，無任何外浮卡片遮擋
     container.innerHTML = `
-        <svg viewBox="0 0 380 240" class="w-full h-full overflow-visible">
-            <line x1="20" y1="120" x2="360" y2="120" stroke="#94a3b8" stroke-width="1.5"/>
-            <line x1="50" y1="230" x2="50" y2="20" stroke="#94a3b8" stroke-width="1.5"/>
-            <text x="350" y="115" class="text-xs fill-slate-500 font-serif">x</text>
-            <text x="56" y="25" class="text-xs fill-slate-500 font-serif">y</text>
-            <text x="36" y="135" class="text-xs fill-slate-500 font-serif">O</text>
-            <line x1="50" y1="20" x2="50" y2="230" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="3,3"/>
-            <circle cx="${originX + 1 * scaleX}" cy="${originY}" r="4" fill="#2563eb"/>
-            <text x="${originX + 1 * scaleX}" y="${originY - 8}" text-anchor="middle" class="text-[11px] font-bold fill-blue-600">(1, 0)</text>
-            <path d="${pathD}" fill="none" stroke="${isIncreasing ? '#2563eb' : '#dc2626'}" stroke-width="3"/>
-            <foreignObject x="175" y="15" width="195" height="95">
-                <div xmlns="http://www.w3.org/1999/xhtml" class="bg-white/95 p-2 rounded-xl border ${isIncreasing ? 'border-blue-200' : 'border-rose-200'} shadow-md">
-                    <div class="flex items-center justify-between pb-1 border-b border-slate-100">
-                        <div class="text-sm font-bold ${isIncreasing ? 'text-blue-800' : 'text-rose-800'}">
-                            $y = \\log_{${a.toFixed(1)}} x$
-                        </div>
-                        <span class="text-[10px] font-black px-1.5 py-0.2 rounded ${isIncreasing ? 'bg-blue-100 text-blue-700' : 'bg-rose-100 text-rose-700'}">
-                            ${isIncreasing ? '嚴格遞增' : '嚴格遞減'}
-                        </span>
-                    </div>
-                    <div class="text-[11px] text-slate-600 mt-1">漸近線：$x = 0$（y軸）</div>
-                    <div class="text-[11px] text-slate-500">恆過定點：$(1, 0)$</div>
-                </div>
-            </foreignObject>
+        <svg viewBox="0 0 420 240" class="w-full h-full overflow-visible select-none">
+            ${gridLines}
+            <!-- 坐標軸 -->
+            <line x1="25" y1="${originY}" x2="405" y2="${originY}" stroke="#64748b" stroke-width="1.5"/>
+            <line x1="${originX}" y1="228" x2="${originX}" y2="14" stroke="#64748b" stroke-width="1.5"/>
+            <polygon points="405,${originY} 397,${originY - 3} 397,${originY + 3}" fill="#64748b"/>
+            <polygon points="${originX},14 ${originX - 3},22 ${originX + 3},22" fill="#64748b"/>
+            <text x="408" y="${originY + 4}" class="text-xs fill-slate-600 font-bold font-serif">x</text>
+            <text x="${originX - 2}" y="12" class="text-xs fill-slate-600 font-bold font-serif">y</text>
+            <text x="${originX - 10}" y="${originY + 14}" class="text-xs fill-slate-500 font-serif">O</text>
+
+            <!-- 漸近線 x = 0 (y軸虛線) -->
+            <line x1="${originX}" y1="18" x2="${originX}" y2="225" stroke="#ef4444" stroke-width="2" stroke-dasharray="4,4" opacity="0.6"/>
+            <text x="${originX + 6}" y="28" class="text-[10px] font-bold fill-rose-600 select-none">漸近線 x = 0</text>
+
+            <!-- 恆過定點 (1, 0) -->
+            <circle cx="${originX + 1 * scaleX}" cy="${originY}" r="4.5" fill="#2563eb" stroke="#ffffff" stroke-width="1.5"/>
+            <text x="${originX + 1 * scaleX}" y="${originY - 8}" text-anchor="middle" class="text-[10px] font-black fill-blue-600 font-mono">(1, 0)</text>
+
+            <!-- 對數函數曲線主體 -->
+            <path d="${pathD}" fill="none" stroke="${isIncreasing ? '#2563eb' : '#dc2626'}" stroke-width="3" stroke-linecap="round"/>
         </svg>
     `;
-    if (window.renderMathInElement) renderMathInElement(container, { delimiters: [{left: '$', right: '$', display: false}] });
+
+    // 資訊獨立渲染到底部狀態列，絕不遮擋圖形
+    if (infoCard) {
+        infoCard.innerHTML = `
+            <div class="flex items-center gap-2.5">
+                <span class="text-sm sm:text-base font-black ${isIncreasing ? 'text-blue-700' : 'text-rose-700'} tracking-wide">
+                    $y = \\log_{${a.toFixed(1)}} x$
+                </span>
+                <span class="px-2 py-0.5 rounded-md text-[11px] font-black ${isIncreasing ? 'bg-blue-100 text-blue-700 border border-blue-200' : 'bg-rose-100 text-rose-700 border border-rose-200'}">
+                    ${isIncreasing ? '嚴格遞增（a > 1）' : '嚴格遞減（0 < a < 1）'}
+                </span>
+            </div>
+            <div class="flex items-center gap-2 sm:gap-3 text-[11px] text-slate-600 font-medium">
+                <span class="flex items-center gap-1"><i class="fa-solid fa-arrows-up-down text-rose-500"></i> 漸近線：<strong class="font-mono text-slate-800">$x = 0$</strong></span>
+                <span class="flex items-center gap-1"><i class="fa-solid fa-location-dot text-blue-500"></i> 恆過定點：<strong class="font-mono text-slate-800">$(1, 0)$</strong></span>
+                <span class="hidden md:inline-block text-slate-300">|</span>
+                <span class="hidden md:inline-block">定義域：<strong class="font-mono text-slate-800">$x > 0$</strong></span>
+            </div>
+        `;
+        if (window.renderMathInElement) {
+            renderMathInElement(infoCard, { delimiters: [{left: '$', right: '$', display: false}] });
+        }
+    }
 }
 
 // -------------------------------------------------------------
