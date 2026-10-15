@@ -125,25 +125,39 @@ function renderCards() {
 
         const cardEl = document.createElement('div');
         cardEl.id = `card-wrapper-${idx}`;
-        cardEl.className = 'flip-card-container group h-[500px] sm:h-[520px] perspective';
+        cardEl.className = 'flip-card-container group h-[530px] sm:h-[550px] lg:h-[565px] perspective';
 
         const isMastered = masteredSet.has(card.id);
         const isReview = reviewSet.has(card.id);
         const caseNumber = `CASE ${String(card.id).padStart(2, '0')}`;
 
+        // 依題型動態賦予精美高對比徽章色彩
+        let tagBadgeClass = 'bg-red-100 text-red-700 border border-red-200 font-black';
+        if (card.tag.includes('例題')) {
+            tagBadgeClass = 'bg-red-600 text-white font-black shadow-xs tracking-wide';
+        } else if (card.tag.includes('隨堂')) {
+            tagBadgeClass = 'bg-emerald-600 text-white font-black shadow-xs tracking-wide';
+        } else if (card.tag.includes('觀念')) {
+            tagBadgeClass = 'bg-indigo-600 text-white font-black shadow-xs tracking-wide';
+        } else if (card.tag.includes('是非')) {
+            tagBadgeClass = 'bg-amber-500 text-slate-950 font-black shadow-xs tracking-wide';
+        } else if (card.tag.includes('習題')) {
+            tagBadgeClass = 'bg-sky-600 text-white font-black shadow-xs tracking-wide';
+        }
+
         cardEl.innerHTML = `
             <div id="card-inner-${idx}" class="flip-card-inner relative w-full h-full duration-500 transform-style-3d shadow-md hover:shadow-xl rounded-2xl border border-slate-200 bg-white transition-all">
                 
                 <!-- 卡片正面 (案件檔案：題目與審題提示) -->
-                <div class="flip-card-front absolute w-full h-full backface-hidden rounded-2xl p-5 sm:p-6 flex flex-col justify-between bg-gradient-to-b from-slate-50 via-white to-blue-50/30 overflow-hidden border-t-4 border-blue-900">
-                    <div>
-                        <!-- 標籤列 (柯南案卷標籤) -->
-                        <div class="flex items-center justify-between gap-2 mb-3">
+                <div class="flip-card-front absolute w-full h-full backface-hidden rounded-2xl p-4 sm:p-5 lg:p-6 flex flex-col justify-between bg-gradient-to-b from-slate-50 via-white to-blue-50/30 overflow-hidden border-t-4 border-blue-900">
+                    <div class="overflow-y-auto pr-1">
+                        <!-- 標籤列 (柯南案卷標籤與題號) -->
+                        <div class="flex items-center justify-between gap-2 mb-2 sm:mb-3">
                             <div class="flex items-center gap-1.5 flex-wrap">
-                                <span class="px-2 py-0.5 text-xs font-black rounded-md bg-blue-900 text-white tracking-wider font-mono shadow-xs">
+                                <span class="px-2.5 py-0.5 text-xs font-black rounded-md bg-blue-900 text-white tracking-wider font-mono shadow-xs">
                                     ${caseNumber}
                                 </span>
-                                <span class="px-2 py-0.5 text-xs font-black rounded-md bg-red-100 text-red-700 border border-red-200">
+                                <span class="px-2.5 py-0.5 text-xs rounded-md ${tagBadgeClass}">
                                     ${card.tag}
                                 </span>
                                 <span class="text-xs font-bold text-slate-400">
@@ -163,25 +177,25 @@ function renderCards() {
                             </div>
                         </div>
 
-                        <!-- 標題 (使用 .innerHTML 渲染 KaTeX) -->
-                        <h3 class="text-base sm:text-lg font-bold text-slate-900 mb-2 leading-snug">
+                        <!-- 標題 (使用 .innerHTML 渲染 KaTeX，加大字體) -->
+                        <h3 class="text-lg sm:text-xl font-black text-slate-900 mb-2 leading-snug">
                             ${card.title}
                         </h3>
 
-                        <!-- 題目核心內容 (案件密碼/題幹算式，無捲軸、適度折行) -->
-                        <div class="front-math-container py-2 text-slate-700 text-sm sm:text-base leading-relaxed break-words">
+                        <!-- 題目核心內容 (案件密碼/題幹算式，加大字體 text-base sm:text-lg lg:text-xl) -->
+                        <div class="front-math-container py-2 text-slate-800 text-base sm:text-lg lg:text-xl font-medium leading-relaxed break-words">
                             ${card.front_content}
                         </div>
 
-                        <!-- 柯南審題思維導引 -->
-                        <div class="mt-3 p-3 rounded-xl bg-amber-50/90 border border-amber-300 text-xs sm:text-sm text-amber-950 leading-relaxed shadow-2xs">
+                        <!-- 柯南審題思維導引 (加大字體 text-sm sm:text-base) -->
+                        <div class="mt-3 p-3.5 rounded-xl bg-amber-50/90 border border-amber-300 text-sm sm:text-base text-amber-950 leading-relaxed shadow-2xs">
                             <span class="font-black text-red-600"><i class="fa-solid fa-magnifying-glass"></i> 柯南破案導引：</span>
                             ${card.front_tip}
                         </div>
                     </div>
 
                     <!-- 正面底部：自我破案抽屜按鈕與翻面按鈕 -->
-                    <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+                    <div class="pt-2.5 border-t border-slate-100 flex items-center justify-between">
                         <button onclick="toggleQuizDrawer(event, ${card.id})" class="text-xs font-bold text-blue-900 hover:text-red-600 flex items-center gap-1.5 py-1 px-2 rounded-md hover:bg-blue-50 transition-all">
                             <i class="fa-solid fa-clipboard-question"></i> 自主現場調查
                         </button>
@@ -207,13 +221,17 @@ function renderCards() {
                 </div>
 
                 <!-- 卡片背面 (名偵探推理筆記與證物圖解) -->
-                <div id="card-back-${idx}" class="flip-card-back absolute w-full h-full backface-hidden rotate-y-180 rounded-2xl p-5 sm:p-6 flex flex-col justify-between bg-gradient-to-b from-white via-slate-50 to-amber-50/20 overflow-hidden border-t-4 border-red-600">
+                <div id="card-back-${idx}" class="flip-card-back absolute w-full h-full backface-hidden rotate-y-180 rounded-2xl p-4 sm:p-5 lg:p-6 flex flex-col justify-between bg-gradient-to-b from-white via-slate-50 to-amber-50/20 overflow-hidden border-t-4 border-red-600">
                     <div class="overflow-y-auto pr-1">
-                        <!-- 背面頂部操作列 -->
+                        <!-- 背面頂部操作列 (加入案號與題型題號標籤) -->
                         <div class="flex items-center justify-between gap-2 mb-2 pb-2 border-b border-slate-100">
-                            <span class="text-xs font-black text-blue-950 flex items-center gap-1">
-                                <i class="fa-solid fa-glasses text-red-600"></i> 名偵探推理筆記
-                            </span>
+                            <div class="flex items-center gap-1.5 flex-wrap">
+                                <span class="px-2 py-0.5 text-xs font-black rounded-md bg-blue-900 text-white font-mono shadow-xs">${caseNumber}</span>
+                                <span class="px-2.5 py-0.5 text-xs rounded-md ${tagBadgeClass}">${card.tag}</span>
+                                <span class="text-xs font-black text-blue-950 flex items-center gap-1 ml-1">
+                                    <i class="fa-solid fa-glasses text-red-600"></i> 推理筆記
+                                </span>
+                            </div>
                             <div class="flex items-center gap-1.5">
                                 <button onclick="openModal(${idx})" class="p-1 rounded bg-slate-100 hover:bg-blue-100 text-slate-600 hover:text-blue-900 text-xs" title="劇院全螢幕探案">
                                     <i class="fa-solid fa-expand"></i>
@@ -226,33 +244,33 @@ function renderCards() {
 
                         <!-- 步驟切換按鈕列 (Core Rule 10: 動態步數) -->
                         <div class="flex flex-wrap items-center gap-1 mb-2">
-                            <button id="card-${idx}-step-btn-0" onclick="showStep(${idx}, 0)" class="step-btn px-2 py-0.5 text-xs font-bold rounded bg-blue-900 text-white shadow-xs">全部</button>
+                            <button id="card-${idx}-step-btn-0" onclick="showStep(${idx}, 0)" class="step-btn px-2.5 py-1 text-xs font-bold rounded-lg bg-blue-900 text-white shadow-xs">全部</button>
                             ${card.steps.map((st, sIdx) => `
-                                <button id="card-${idx}-step-btn-${sIdx+1}" onclick="showStep(${idx}, ${sIdx+1})" class="step-btn px-2 py-0.5 text-xs font-bold rounded bg-slate-100 text-slate-600 hover:bg-blue-100 hover:text-blue-900">線索 ${sIdx+1}</button>
+                                <button id="card-${idx}-step-btn-${sIdx+1}" onclick="showStep(${idx}, ${sIdx+1})" class="step-btn px-2.5 py-1 text-xs font-bold rounded-lg bg-slate-100 text-slate-700 hover:bg-blue-100 hover:text-blue-900">線索 ${sIdx+1}</button>
                             `).join('')}
                         </div>
 
-                        <!-- 結構化步驟容器 (線索推理鏈) -->
-                        <div class="space-y-1.5 text-xs sm:text-sm">
+                        <!-- 結構化步驟容器 (線索推理鏈，放大字體 text-sm sm:text-base) -->
+                        <div class="space-y-2 text-sm sm:text-base">
                             ${card.steps.map((st, sIdx) => `
-                                <div id="card-${idx}-step-${sIdx+1}" class="step-row step-row-${sIdx+1} p-2 rounded-lg bg-slate-50 border border-slate-200 cursor-pointer transition-all duration-300" onclick="showStep(${idx}, ${sIdx+1})">
-                                    <span class="font-black text-blue-900 mr-1.5">線索 ${st.num} [${st.title}]：</span>
-                                    <span class="text-slate-700 leading-relaxed">${st.content}</span>
+                                <div id="card-${idx}-step-${sIdx+1}" class="step-row step-row-${sIdx+1} p-2.5 rounded-lg bg-slate-50 border border-slate-200 cursor-pointer transition-all duration-300" onclick="showStep(${idx}, ${sIdx+1})">
+                                    <span class="font-black text-blue-900 mr-2 text-sm sm:text-base">線索 ${st.num} [${st.title}]：</span>
+                                    <span class="text-slate-800 leading-relaxed text-sm sm:text-base">${st.content}</span>
                                 </div>
                             `).join('')}
                         </div>
 
-                        <!-- 柯南破案印章結論列 -->
-                        <div id="card-${idx}-conclusion" class="conclusion-row mt-2.5 p-2.5 rounded-xl bg-red-50/80 border-2 border-red-500 text-xs sm:text-sm font-bold text-red-950 transition-all duration-300 shadow-xs">
+                        <!-- 柯南破案印章結論列 (放大字體 text-sm sm:text-base) -->
+                        <div id="card-${idx}-conclusion" class="conclusion-row mt-3 p-3 rounded-xl bg-red-50/80 border-2 border-red-500 text-sm sm:text-base font-bold text-red-950 transition-all duration-300 shadow-xs">
                             <div class="flex items-center gap-1.5 mb-1 text-red-600 font-black">
                                 <i class="fa-solid fa-stamp"></i>
                                 <span>【CASE CLOSED 真相永遠只有一個！】</span>
                             </div>
-                            <div class="text-slate-800 leading-relaxed pl-1">${card.conclusion}</div>
+                            <div class="text-slate-900 leading-relaxed pl-1">${card.conclusion}</div>
                         </div>
 
                         <!-- 證物解析圖解 SVG 容器 -->
-                        <div class="mt-3 p-2 bg-white rounded-xl border border-slate-200 flex items-center justify-center min-h-[140px] max-h-[170px] overflow-hidden">
+                        <div class="mt-3 p-2 bg-white rounded-xl border border-slate-200 flex items-center justify-center min-h-[150px] max-h-[190px] overflow-hidden">
                             ${card.svg}
                         </div>
                     </div>
@@ -1618,10 +1636,31 @@ function copyQrUrl() {
 }
 
 // ==========================================
+// 13.5 網頁全螢幕滿版投影切換
+// ==========================================
+function togglePageFullscreen() {
+    recordInteraction();
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => {
+            console.warn("無法啟動全螢幕模式：", err);
+        });
+    } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen().catch(() => {});
+        }
+    }
+}
+
+// ==========================================
 // 14. 鍵盤快速鍵支援
 // ==========================================
 function initKeyboardShortcuts() {
     document.addEventListener('keydown', (e) => {
+        // 如果使用者正在輸入文字或密碼，不攔截按鍵
+        if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) {
+            return;
+        }
+
         const modal = document.getElementById('fullscreen-modal');
         const mindmap = document.getElementById('mindmap-modal');
         const lab = document.getElementById('lab-modal');
@@ -1668,18 +1707,52 @@ function initKeyboardShortcuts() {
                 e.preventDefault();
                 toggleMindmapFullscreen();
             }
+        } else {
+            // 沒有開啟任何模態框時，按下 F 鍵即可一鍵切換網頁全螢幕滿版！
+            if (e.key.toLowerCase() === 'f') {
+                e.preventDefault();
+                togglePageFullscreen();
+            }
         }
     });
 
     document.addEventListener('fullscreenchange', () => {
-        const btn = document.getElementById('modal-fs-toggle-btn');
-        if (btn) {
-            if (document.fullscreenElement) {
-                btn.innerHTML = '<i class="fa-solid fa-compress"></i><span class="hidden lg:inline">退出滿版 (F)</span>';
+        const isFs = !!document.fullscreenElement;
+        
+        // 1. 劇院卡片全螢幕按鈕更新
+        const modalFsBtn = document.getElementById('modal-fs-toggle-btn');
+        if (modalFsBtn) {
+            if (isFs) {
+                modalFsBtn.innerHTML = '<i class="fa-solid fa-compress"></i><span class="hidden lg:inline">退出滿版 (F)</span>';
             } else {
-                btn.innerHTML = '<i class="fa-solid fa-maximize"></i><span class="hidden lg:inline">滿版投影 (F)</span>';
+                modalFsBtn.innerHTML = '<i class="fa-solid fa-maximize"></i><span class="hidden lg:inline">滿版投影 (F)</span>';
             }
         }
+        
+        // 2. 頂部導覽列全螢幕按鈕更新
+        const pageFsBtn = document.getElementById('page-fullscreen-btn');
+        const pageFsIcon = document.getElementById('page-fullscreen-icon');
+        const pageFsText = document.getElementById('page-fullscreen-text');
+        if (pageFsBtn) {
+            if (isFs) {
+                pageFsBtn.classList.add('bg-red-700', 'text-white', 'border-red-500');
+                pageFsBtn.classList.remove('bg-slate-800', 'text-amber-300', 'border-amber-400/50');
+                if (pageFsIcon) pageFsIcon.className = 'fa-solid fa-compress text-white';
+                if (pageFsText) pageFsText.innerText = '退出滿版';
+            } else {
+                pageFsBtn.classList.remove('bg-red-700', 'text-white', 'border-red-500');
+                pageFsBtn.classList.add('bg-slate-800', 'text-amber-300', 'border-amber-400/50');
+                if (pageFsIcon) pageFsIcon.className = 'fa-solid fa-expand text-amber-400';
+                if (pageFsText) pageFsText.innerText = '全螢幕滿版';
+            }
+        }
+
+        // 3. 懸浮全螢幕按鈕更新
+        const floatFsIcon = document.getElementById('floating-fullscreen-icon');
+        if (floatFsIcon) {
+            floatFsIcon.className = isFs ? 'fa-solid fa-compress text-base' : 'fa-solid fa-expand text-base';
+        }
+
         resizeWhiteboard();
     });
 }

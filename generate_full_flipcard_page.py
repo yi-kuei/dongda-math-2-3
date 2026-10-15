@@ -121,9 +121,9 @@ def generate_index_html():
 </head>
 <body class="bg-slate-100 text-slate-800 font-sans antialiased min-h-screen flex flex-col selection:bg-red-600 selection:text-white">
 
-  <!-- 頂部導覽列 (柯南深藍風格 + 偵探徽章) -->
+  <!-- 頂部導覽列 (柯南深藍風格 + 偵探徽章 + 全螢幕滿版) -->
   <header class="sticky top-0 z-40 bg-slate-900/95 backdrop-blur-md border-b-2 border-red-600 shadow-md">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <div class="max-w-[97vw] 2xl:max-w-[1800px] mx-auto px-2 sm:px-4 lg:px-6 h-16 flex items-center justify-between">
       <div class="flex items-center gap-3">
         <a href="#top" class="flex items-center gap-2.5 group">
           <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-900 via-blue-800 to-red-600 flex items-center justify-center text-white shadow-md shadow-blue-950 group-hover:scale-105 transition-all border border-amber-400/30">
@@ -141,7 +141,7 @@ def generate_index_html():
         </a>
       </div>
 
-      <div class="flex items-center gap-2 sm:gap-3">
+      <div class="flex items-center gap-1.5 sm:gap-2.5">
         <button onclick="openGameArenaModal()" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-red-600 via-amber-500 to-yellow-400 text-slate-950 hover:brightness-110 text-xs font-black transition-all flex items-center gap-1.5 shadow-md shadow-red-900/40 animate-pulse">
           <i class="fa-solid fa-gamepad text-slate-950"></i> <span class="hidden sm:inline">5大對戰競技場</span>
         </button>
@@ -157,6 +157,10 @@ def generate_index_html():
         <button onclick="openChallengeModal(0)" class="px-3 py-1.5 rounded-xl bg-red-600 text-white hover:bg-red-500 text-xs font-bold transition-all flex items-center gap-1.5 shadow-md shadow-red-900/50">
           <i class="fa-solid fa-bullseye text-white"></i> <span class="hidden sm:inline">少年偵探團考核</span>
         </button>
+        <button id="page-fullscreen-btn" onclick="togglePageFullscreen()" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 hover:text-white text-xs font-bold transition-all border border-amber-400/50 flex items-center gap-1.5 shadow-xs" title="切換網頁全螢幕滿版 (按 F 或 F11 鍵)">
+          <i class="fa-solid fa-expand text-amber-400" id="page-fullscreen-icon"></i>
+          <span id="page-fullscreen-text" class="hidden sm:inline">全螢幕滿版</span>
+        </button>
         <button onclick="openQrModal()" class="p-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 text-xs font-bold transition-all border border-slate-700" title="手機掃碼搜查連線">
           <i class="fa-solid fa-qrcode text-amber-400"></i>
         </button>
@@ -165,60 +169,60 @@ def generate_index_html():
   </header>
 
   <!-- 主橫幅區 (Hero Section：柯南深藍海軍西裝 + 領結紅 + 偵探儀表板) -->
-  <section class="bg-gradient-to-b from-slate-950 via-blue-950 to-slate-900 text-white pt-10 pb-12 px-4 sm:px-6 lg:px-8 border-b-4 border-amber-500">
-    <div class="max-w-7xl mx-auto">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+  <section class="bg-gradient-to-b from-slate-950 via-blue-950 to-slate-900 text-white pt-8 pb-10 px-2 sm:px-4 lg:px-6 border-b-4 border-amber-500">
+    <div class="max-w-[97vw] 2xl:max-w-[1800px] mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
         <div class="lg:col-span-8">
-          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-900/60 text-amber-300 border border-amber-400/40 text-xs font-bold mb-4 shadow-sm">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-900/60 text-amber-300 border border-amber-400/40 text-xs font-bold mb-3 shadow-sm">
             <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
             <span>【名偵探柯南 ‧ 數理搜查任務】真相永遠只有一個！</span>
           </div>
-          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-4 leading-tight text-white">
+          <h2 class="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-3 leading-tight text-white">
             對數及其運算的意義 ‧ 密碼破解特訓
           </h2>
-          <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-6 max-w-2xl">
+          <p class="text-slate-300 text-xs sm:text-base leading-relaxed mb-5 max-w-3xl">
             收錄全單元 {len(cards)} 件案件線索圖解學習卡（堅持一題一案、一小題獨立成卡，例題隨堂與課後習題 100% 忠實課本原文）。
             配備名偵探破案導引、線索推理鏈、多功能電子搜查白板、阿笠博士動態實驗室與滿版探案簡報。
           </p>
 
           <!-- 資源下載快捷列 (SOP v4.0 純化旗艦四大標竿按鈕) -->
-          <div class="flex flex-wrap items-center gap-3">
-            <button onclick="openGameArenaModal()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-red-600 via-amber-500 to-yellow-400 hover:brightness-110 text-slate-950 font-black text-xs sm:text-sm shadow-lg shadow-red-950 transition-all flex items-center gap-2 border border-amber-400">
+          <div class="flex flex-wrap items-center gap-2.5 sm:gap-3">
+            <button onclick="openGameArenaModal()" class="px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-xl bg-gradient-to-r from-red-600 via-amber-500 to-yellow-400 hover:brightness-110 text-slate-950 font-black text-xs sm:text-sm shadow-lg shadow-red-950 transition-all flex items-center gap-2 border border-amber-400">
               <i class="fa-solid fa-gamepad text-slate-950"></i> 柯南 5 大線上對戰遊戲館
             </button>
-            <button onclick="downloadStudentDocx()" class="px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-slate-950 font-bold text-xs sm:text-sm shadow-md shadow-amber-950 transition-all flex items-center gap-2 border border-amber-400">
+            <button onclick="downloadStudentDocx()" class="px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-slate-950 font-bold text-xs sm:text-sm shadow-md shadow-amber-950 transition-all flex items-center gap-2 border border-amber-400">
               <i class="fa-solid fa-file-lines text-slate-950"></i> 偵探搜查實作單 (B4 Word)
             </button>
-            <button onclick="openTeacherPwdModal('lesson_plan')" class="px-4 py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-xs sm:text-sm border border-emerald-500 shadow-md shadow-emerald-950 transition-all flex items-center gap-2">
+            <button onclick="openTeacherPwdModal('lesson_plan')" class="px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-xs sm:text-sm border border-emerald-500 shadow-md shadow-emerald-950 transition-all flex items-center gap-2">
               <i class="fa-solid fa-chalkboard-user text-amber-300"></i> 四節課教學計畫與教案 (B4 Word)
             </button>
-            <button onclick="openTeacherPwdModal('teacher')" class="px-4 py-2.5 rounded-xl bg-red-700 hover:bg-red-600 text-white font-bold text-xs sm:text-sm border border-red-500 shadow-md shadow-red-950 transition-all flex items-center gap-2">
+            <button onclick="openTeacherPwdModal('teacher')" class="px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-xl bg-red-700 hover:bg-red-600 text-white font-bold text-xs sm:text-sm border border-red-500 shadow-md shadow-red-950 transition-all flex items-center gap-2">
               <i class="fa-solid fa-user-secret text-amber-300"></i> 警視廳機密解答卷宗 (密碼保護)
             </button>
-            <a href="download/2-3_對數及其運算的意義_全套65張圖解學習卡.pdf" target="_blank" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs sm:text-sm border border-amber-400/50 hover:border-amber-400 transition-all flex items-center gap-2">
+            <a href="download/2-3_對數及其運算的意義_全套65張圖解學習卡.pdf" target="_blank" class="px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs sm:text-sm border border-amber-400/50 hover:border-amber-400 transition-all flex items-center gap-2">
               <i class="fa-solid fa-file-pdf text-amber-400"></i> 全套 65 案圖解卡 (A4 PDF)
             </a>
           </div>
         </div>
 
         <!-- 橫幅右側：即時偵查情報儀表板 -->
-        <div class="lg:col-span-4 bg-slate-900/80 backdrop-blur-md rounded-2xl p-5 border-2 border-blue-800/80 shadow-2xl">
+        <div class="lg:col-span-4 bg-slate-900/80 backdrop-blur-md rounded-2xl p-4 sm:p-5 border-2 border-blue-800/80 shadow-2xl">
           <div class="text-xs font-bold text-amber-300 mb-3 flex items-center justify-between">
             <span class="flex items-center gap-1.5"><i class="fa-solid fa-shield-halved text-red-500"></i> 即時偵查情報儀表板</span>
             <span class="text-[10px] text-slate-400 font-mono">CASE 01~{len(cards)}</span>
           </div>
           <div class="grid grid-cols-3 gap-2 text-center mb-4">
-            <div class="bg-slate-950/80 p-2.5 rounded-xl border border-slate-800">
+            <div class="bg-slate-950/80 p-2 sm:p-2.5 rounded-xl border border-slate-800">
               <div class="text-[10px] text-slate-400 mb-0.5">總搜查人次</div>
-              <div id="stat-pageviews" class="text-lg font-black text-red-400 font-mono">0</div>
+              <div id="stat-pageviews" class="text-base sm:text-lg font-black text-red-400 font-mono">0</div>
             </div>
-            <div class="bg-slate-950/80 p-2.5 rounded-xl border border-slate-800">
+            <div class="bg-slate-950/80 p-2 sm:p-2.5 rounded-xl border border-slate-800">
               <div class="text-[10px] text-slate-400 mb-0.5">到訪特派員</div>
-              <div id="stat-visitors" class="text-lg font-black text-amber-400 font-mono">0</div>
+              <div id="stat-visitors" class="text-base sm:text-lg font-black text-amber-400 font-mono">0</div>
             </div>
-            <div class="bg-slate-950/80 p-2.5 rounded-xl border border-slate-800">
+            <div class="bg-slate-950/80 p-2 sm:p-2.5 rounded-xl border border-slate-800">
               <div class="text-[10px] text-slate-400 mb-0.5">破案互動數</div>
-              <div id="stat-interactions" class="text-lg font-black text-emerald-400 font-mono">0</div>
+              <div id="stat-interactions" class="text-base sm:text-lg font-black text-emerald-400 font-mono">0</div>
             </div>
           </div>
           <div>
@@ -235,9 +239,9 @@ def generate_index_html():
     </div>
   </section>
 
-  <!-- 篩選列與卡片操作列 -->
-  <section class="sticky top-16 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200 py-3 px-4 sm:px-6 lg:px-8 shadow-xs">
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
+  <!-- 篩選列與卡片操作列 (滿版寬度自適應) -->
+  <section class="sticky top-16 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200 py-2.5 px-2 sm:px-4 lg:px-6 shadow-xs">
+    <div class="max-w-[97vw] 2xl:max-w-[1800px] mx-auto flex flex-col md:flex-row items-center justify-between gap-2.5">
       <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
         <button onclick="filterByCategory('all')" class="category-btn px-3 py-1.5 rounded-xl text-xs font-bold transition-all bg-blue-900 text-white shadow-xs">
           全部案件 ({len(cards)})
@@ -298,12 +302,18 @@ def generate_index_html():
     </div>
   </section>
 
-  <!-- 卡片網格主容器 (強制雙欄) -->
-  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <div id="cards-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+  <!-- 卡片網格主容器 (寬版滿版設計，極小邊界、大字體空間) -->
+  <main class="flex-1 max-w-[97vw] 2xl:max-w-[1800px] w-full mx-auto px-2 sm:px-3 lg:px-5 py-6">
+    <div id="cards-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 lg:gap-6">
       <!-- 由 JS 動態生成 65 張圖卡 -->
     </div>
   </main>
+
+  <!-- 頁面右下角懸浮全螢幕滿版切換快捷鈕 -->
+  <button id="floating-fullscreen-btn" onclick="togglePageFullscreen()" class="fixed bottom-6 right-6 z-40 p-3 rounded-full bg-slate-900/90 text-amber-300 hover:bg-red-600 hover:text-white shadow-2xl border-2 border-amber-400/60 backdrop-blur-md transition-all hover:scale-110 flex items-center justify-center group" title="切換網頁全螢幕滿版 (F)">
+    <i class="fa-solid fa-expand text-base" id="floating-fullscreen-icon"></i>
+    <span class="max-w-0 overflow-hidden whitespace-nowrap group-hover:max-w-xs transition-all duration-300 ease-in-out text-xs font-bold pl-0 group-hover:pl-2">滿版模式</span>
+  </button>
 
   <!-- 頁尾 (第一列三色膠囊訪客計數器) -->
   <footer class="bg-white border-t border-slate-200 py-8 px-4 sm:px-6 lg:px-8 mt-12 text-center">

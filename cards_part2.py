@@ -16,7 +16,7 @@ cards_part2.py - 東大版 技術高中數學（第三冊）2-3 對數及其運�
 CARDS_PART2 = [
     {
         "id": 43,
-        "tag": "CASE 43",
+        "tag": "是非 1",
         "page": "課本 p.83",
         "category": "課後習作",
         "title": "觀念辨析：$\\log_a 1$ 的值",
@@ -39,7 +39,7 @@ CARDS_PART2 = [
     },
     {
         "id": 44,
-        "tag": "CASE 44",
+        "tag": "是非 2",
         "page": "課本 p.83",
         "category": "課後習作",
         "title": "觀念辨析：真數相加與對數相加",
@@ -62,7 +62,7 @@ CARDS_PART2 = [
     },
     {
         "id": 45,
-        "tag": "CASE 45",
+        "tag": "是非 3",
         "page": "課本 p.83",
         "category": "課後習作",
         "title": "觀念辨析：對數相除與對數相減",
@@ -85,7 +85,7 @@ CARDS_PART2 = [
     },
     {
         "id": 46,
-        "tag": "CASE 46",
+        "tag": "是非 4",
         "page": "課本 p.83",
         "category": "課後習作",
         "title": "觀念辨析：真數為負數之次方提出",
@@ -108,7 +108,7 @@ CARDS_PART2 = [
     },
     {
         "id": 47,
-        "tag": "CASE 47",
+        "tag": "是非 5",
         "page": "課本 p.83",
         "category": "課後習作",
         "title": "觀念辨析：真數為正時對數值的正負",
@@ -131,7 +131,7 @@ CARDS_PART2 = [
     },
     {
         "id": 48,
-        "tag": "CASE 48",
+        "tag": "習題 1",
         "page": "課本 p.83",
         "category": "課後習作",
         "title": "對數存在的必要條件求範圍",
@@ -159,7 +159,7 @@ CARDS_PART2 = [
     },
     {
         "id": 49,
-        "tag": "CASE 49",
+        "tag": "習題 2(1)",
         "page": "課本 p.83",
         "category": "課後習作",
         "title": "基礎對數特徵值求和",
@@ -182,7 +182,7 @@ CARDS_PART2 = [
     },
     {
         "id": 50,
-        "tag": "CASE 50",
+        "tag": "習題 2(2)",
         "page": "課本 p.83",
         "category": "課後習作",
         "title": "方根底數與小數對數混合求值",
@@ -210,7 +210,7 @@ CARDS_PART2 = [
     },
     {
         "id": 51,
-        "tag": "CASE 51",
+        "tag": "習題 3(1)",
         "page": "課本 p.83",
         "category": "課後習作",
         "title": "同底對數加法求值",
@@ -233,7 +233,7 @@ CARDS_PART2 = [
     },
     {
         "id": 52,
-        "tag": "CASE 52",
+        "tag": "習題 3(2)",
         "page": "課本 p.83",
         "category": "課後習作",
         "title": "常用對數加減運算",
@@ -261,7 +261,7 @@ CARDS_PART2 = [
     },
     {
         "id": 53,
-        "tag": "CASE 53",
+        "tag": "習題 3(3)",
         "page": "課本 p.83",
         "category": "課後習作",
         "title": "係數還原次方後對數加減",
@@ -289,7 +289,7 @@ CARDS_PART2 = [
     },
     {
         "id": 54,
-        "tag": "CASE 54",
+        "tag": "習題 4(1)",
         "page": "課本 p.83",
         "category": "課後習作",
         "title": "指數分式換底化簡",
@@ -312,7 +312,7 @@ CARDS_PART2 = [
     },
     {
         "id": 55,
-        "tag": "CASE 55",
+        "tag": "習題 4(2)",
         "page": "課本 p.83",
         "category": "課後習作",
         "title": "指數對數相減與換底",
@@ -340,7 +340,7 @@ CARDS_PART2 = [
     },
     {
         "id": 56,
-        "tag": "CASE 56",
+        "tag": "習題 4(3)",
         "page": "課本 p.83",
         "category": "課後習作",
         "title": "巢狀對數由內而外求值",
@@ -363,7 +363,7 @@ CARDS_PART2 = [
     },
     {
         "id": 57,
-        "tag": "CASE 57",
+        "tag": "習題 5",
         "page": "課本 p.83",
         "category": "課後習作",
         "title": "三項對數連鎖律乘積",
@@ -391,7 +391,7 @@ CARDS_PART2 = [
     },
     {
         "id": 58,
-        "tag": "CASE 58",
+        "tag": "習題 6",
         "page": "課本 p.84",
         "category": "進階思考",
         "title": "進階代數換底表達",
@@ -419,7 +419,7 @@ CARDS_PART2 = [
     },
     {
         "id": 59,
-        "tag": "CASE 59",
+        "tag": "習題 7(1)",
         "page": "課本 p.84",
         "category": "進階思考",
         "title": "常用對數近似值：$\\log_{10} 6$",
@@ -442,7 +442,7 @@ CARDS_PART2 = [
     },
     {
         "id": 60,
-        "tag": "CASE 60",
+        "tag": "習題 7(2)",
         "page": "課本 p.84",
         "category": "進階思考",
         "title": "常用對數近似值：$\\log_{10} 5$",
@@ -465,7 +465,7 @@ CARDS_PART2 = [
     },
     {
         "id": 61,
-        "tag": "CASE 61",
+        "tag": "習題 7(3)",
         "page": "課本 p.84",
         "category": "進階思考",
         "title": "常用對數近似值：$\\log_{10} \\frac{3}{2}$",
@@ -488,7 +488,7 @@ CARDS_PART2 = [
     },
     {
         "id": 62,
-        "tag": "CASE 62",
+        "tag": "習題 8",
         "page": "課本 p.84",
         "category": "進階思考",
         "title": "對數定義與指數次方求值",
@@ -516,7 +516,7 @@ CARDS_PART2 = [
     },
     {
         "id": 63,
-        "tag": "CASE 63",
+        "tag": "習題 9",
         "page": "課本 p.84",
         "category": "進階思考",
         "title": "對數多項式乘法展開",
@@ -544,7 +544,7 @@ CARDS_PART2 = [
     },
     {
         "id": 64,
-        "tag": "CASE 64",
+        "tag": "習題 10(1)",
         "page": "課本 p.84",
         "category": "素養應用",
         "title": "芮氏地震規模公式：求規模 $M$",
@@ -572,7 +572,7 @@ CARDS_PART2 = [
     },
     {
         "id": 65,
-        "tag": "CASE 65",
+        "tag": "習題 10(2)",
         "page": "課本 p.84",
         "category": "素養應用",
         "title": "921 集集大地震能量換算",

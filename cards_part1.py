@@ -14,7 +14,7 @@ cards_part1.py - 東大版 技術高中數學（第三冊）2-3 對數及其運�
 CARDS_PART1 = [
     {
         "id": 1,
-        "tag": "CASE 01",
+        "tag": "觀念 1",
         "page": "課本 p.74",
         "category": "對數定義",
         "title": "對數的由來與符號意義",
@@ -42,7 +42,7 @@ CARDS_PART1 = [
     },
     {
         "id": 2,
-        "tag": "CASE 02",
+        "tag": "觀念 2",
         "page": "課本 p.74-75",
         "category": "存在條件",
         "title": "對數的定義與存在條件",
@@ -70,7 +70,7 @@ CARDS_PART1 = [
     },
     {
         "id": 3,
-        "tag": "CASE 03",
+        "tag": "觀念 3",
         "page": "課本 p.77-78",
         "category": "基本性質",
         "title": "對數的五大基本運算性質",
@@ -98,7 +98,7 @@ CARDS_PART1 = [
     },
     {
         "id": 4,
-        "tag": "CASE 04",
+        "tag": "觀念 4",
         "page": "課本 p.78-79",
         "category": "換底連鎖",
         "title": "換底公式、連鎖律與倒數性質",
@@ -126,7 +126,7 @@ CARDS_PART1 = [
     },
     {
         "id": 5,
-        "tag": "CASE 05",
+        "tag": "例題 1",
         "page": "課本 p.75",
         "category": "存在條件",
         "title": "對數的定義辨析",
@@ -154,7 +154,7 @@ CARDS_PART1 = [
     },
     {
         "id": 6,
-        "tag": "CASE 06",
+        "tag": "隨堂 1",
         "page": "課本 p.75",
         "category": "存在條件",
         "title": "對數的定義辨析",
@@ -182,7 +182,7 @@ CARDS_PART1 = [
     },
     {
         "id": 7,
-        "tag": "CASE 07",
+        "tag": "例題 2",
         "page": "課本 p.76",
         "category": "存在條件",
         "title": "對數存在的必要條件",
@@ -210,7 +210,7 @@ CARDS_PART1 = [
     },
     {
         "id": 8,
-        "tag": "CASE 08",
+        "tag": "隨堂 2",
         "page": "課本 p.76",
         "category": "存在條件",
         "title": "對數存在的必要條件",
@@ -238,7 +238,7 @@ CARDS_PART1 = [
     },
     {
         "id": 9,
-        "tag": "CASE 09",
+        "tag": "例題 3(1)",
         "page": "課本 p.76",
         "category": "對數求值",
         "title": "對數求值：以 2 為底",
@@ -261,7 +261,7 @@ CARDS_PART1 = [
     },
     {
         "id": 10,
-        "tag": "CASE 10",
+        "tag": "例題 3(2)",
         "page": "課本 p.76",
         "category": "對數求值",
         "title": "對數求值：負指數型",
@@ -284,7 +284,7 @@ CARDS_PART1 = [
     },
     {
         "id": 11,
-        "tag": "CASE 11",
+        "tag": "例題 3(3)",
         "page": "課本 p.76",
         "category": "對數求值",
         "title": "對數求值：小數底數型",
@@ -307,7 +307,7 @@ CARDS_PART1 = [
     },
     {
         "id": 12,
-        "tag": "CASE 12",
+        "tag": "例題 3(4)",
         "page": "課本 p.76",
         "category": "對數求值",
         "title": "對數求值：底數大於真數",
@@ -330,7 +330,7 @@ CARDS_PART1 = [
     },
     {
         "id": 13,
-        "tag": "CASE 13",
+        "tag": "隨堂 3(1)",
         "page": "課本 p.77",
         "category": "對數求值",
         "title": "對數求值：以 3 為底",
@@ -353,7 +353,7 @@ CARDS_PART1 = [
     },
     {
         "id": 14,
-        "tag": "CASE 14",
+        "tag": "隨堂 3(2)",
         "page": "課本 p.77",
         "category": "對數求值",
         "title": "對數求值：分數真數",
@@ -376,7 +376,7 @@ CARDS_PART1 = [
     },
     {
         "id": 15,
-        "tag": "CASE 15",
+        "tag": "隨堂 3(3)",
         "page": "課本 p.77",
         "category": "對數求值",
         "title": "對數求值：分數底數與真數",
@@ -399,7 +399,7 @@ CARDS_PART1 = [
     },
     {
         "id": 16,
-        "tag": "CASE 16",
+        "tag": "隨堂 3(4)",
         "page": "課本 p.77",
         "category": "對數求值",
         "title": "對數求值：分數底與整數真數",
@@ -422,7 +422,7 @@ CARDS_PART1 = [
     },
     {
         "id": 17,
-        "tag": "CASE 17",
+        "tag": "例題 4(1)",
         "page": "課本 p.79",
         "category": "基本性質",
         "title": "對數基本性質：真數為 1 與底真相同",
@@ -445,7 +445,7 @@ CARDS_PART1 = [
     },
     {
         "id": 18,
-        "tag": "CASE 18",
+        "tag": "例題 4(2)",
         "page": "課本 p.79",
         "category": "基本性質",
         "title": "對數基本性質：方根真數提出",
@@ -468,7 +468,7 @@ CARDS_PART1 = [
     },
     {
         "id": 19,
-        "tag": "CASE 19",
+        "tag": "隨堂 4(1)",
         "page": "課本 p.79",
         "category": "基本性質",
         "title": "對數基本性質：特徵值求和",
@@ -491,7 +491,7 @@ CARDS_PART1 = [
     },
     {
         "id": 20,
-        "tag": "CASE 20",
+        "tag": "隨堂 4(2)",
         "page": "課本 p.79",
         "category": "基本性質",
         "title": "對數基本性質：底數與真數次方提出",
@@ -514,7 +514,7 @@ CARDS_PART1 = [
     },
     {
         "id": 21,
-        "tag": "CASE 21",
+        "tag": "例題 5(1)",
         "page": "課本 p.80",
         "category": "加減運算",
         "title": "對數加法性質：同底對數相加",
@@ -537,7 +537,7 @@ CARDS_PART1 = [
     },
     {
         "id": 22,
-        "tag": "CASE 22",
+        "tag": "例題 5(2)",
         "page": "課本 p.80",
         "category": "加減運算",
         "title": "對數減法性質：同底對數相減",
@@ -560,7 +560,7 @@ CARDS_PART1 = [
     },
     {
         "id": 23,
-        "tag": "CASE 23",
+        "tag": "例題 5(3)",
         "page": "課本 p.80",
         "category": "加減運算",
         "title": "對數連加連減綜合運算",
@@ -588,7 +588,7 @@ CARDS_PART1 = [
     },
     {
         "id": 24,
-        "tag": "CASE 24",
+        "tag": "隨堂 5(1)",
         "page": "課本 p.80",
         "category": "加減運算",
         "title": "對數加法性質求值",
@@ -611,7 +611,7 @@ CARDS_PART1 = [
     },
     {
         "id": 25,
-        "tag": "CASE 25",
+        "tag": "隨堂 5(2)",
         "page": "課本 p.80",
         "category": "加減運算",
         "title": "對數減法性質求值",
@@ -634,7 +634,7 @@ CARDS_PART1 = [
     },
     {
         "id": 26,
-        "tag": "CASE 26",
+        "tag": "隨堂 5(3)",
         "page": "課本 p.80",
         "category": "加減運算",
         "title": "對數綜合加減求值",
@@ -662,7 +662,7 @@ CARDS_PART1 = [
     },
     {
         "id": 27,
-        "tag": "CASE 27",
+        "tag": "例題 6(1)",
         "page": "課本 p.81",
         "category": "換底公式",
         "title": "換底公式之逆運算",
@@ -685,7 +685,7 @@ CARDS_PART1 = [
     },
     {
         "id": 28,
-        "tag": "CASE 28",
+        "tag": "例題 6(2)",
         "page": "課本 p.81",
         "category": "換底公式",
         "title": "指數上的換底化簡",
@@ -708,7 +708,7 @@ CARDS_PART1 = [
     },
     {
         "id": 29,
-        "tag": "CASE 29",
+        "tag": "例題 6(3)",
         "page": "課本 p.81",
         "category": "換底公式",
         "title": "複合底數指數運算",
@@ -736,7 +736,7 @@ CARDS_PART1 = [
     },
     {
         "id": 30,
-        "tag": "CASE 30",
+        "tag": "隨堂 6(1)",
         "page": "課本 p.81",
         "category": "換底公式",
         "title": "換底公式逆用求值",
@@ -759,7 +759,7 @@ CARDS_PART1 = [
     },
     {
         "id": 31,
-        "tag": "CASE 31",
+        "tag": "隨堂 6(2)",
         "page": "課本 p.81",
         "category": "換底公式",
         "title": "指數含零對數運算",
@@ -782,7 +782,7 @@ CARDS_PART1 = [
     },
     {
         "id": 32,
-        "tag": "CASE 32",
+        "tag": "隨堂 6(3)",
         "page": "課本 p.81",
         "category": "換底公式",
         "title": "指數對數次方消去求值",
@@ -805,7 +805,7 @@ CARDS_PART1 = [
     },
     {
         "id": 33,
-        "tag": "CASE 33",
+        "tag": "例題 7(1)",
         "page": "課本 p.81",
         "category": "連鎖律",
         "title": "對數倒數性質乘積",
@@ -828,7 +828,7 @@ CARDS_PART1 = [
     },
     {
         "id": 34,
-        "tag": "CASE 34",
+        "tag": "例題 7(2)",
         "page": "課本 p.81",
         "category": "連鎖律",
         "title": "三項對數連鎖律",
@@ -851,7 +851,7 @@ CARDS_PART1 = [
     },
     {
         "id": 35,
-        "tag": "CASE 35",
+        "tag": "隨堂 7(1)",
         "page": "課本 p.82",
         "category": "連鎖律",
         "title": "對數倒數相乘求值",
@@ -874,7 +874,7 @@ CARDS_PART1 = [
     },
     {
         "id": 36,
-        "tag": "CASE 36",
+        "tag": "隨堂 7(2)",
         "page": "課本 p.82",
         "category": "連鎖律",
         "title": "三項連鎖律求值",
@@ -897,7 +897,7 @@ CARDS_PART1 = [
     },
     {
         "id": 37,
-        "tag": "CASE 37",
+        "tag": "例題 8(1)",
         "page": "課本 p.82",
         "category": "綜合應用",
         "title": "代數表示：質因數分解拆解真數",
@@ -925,7 +925,7 @@ CARDS_PART1 = [
     },
     {
         "id": 38,
-        "tag": "CASE 38",
+        "tag": "例題 8(2)",
         "page": "課本 p.82",
         "category": "綜合應用",
         "title": "代數表示：分數真數拆解",
@@ -953,7 +953,7 @@ CARDS_PART1 = [
     },
     {
         "id": 39,
-        "tag": "CASE 39",
+        "tag": "例題 8(3)",
         "page": "課本 p.82",
         "category": "綜合應用",
         "title": "代數表示：換底公式與基準代換",
@@ -981,7 +981,7 @@ CARDS_PART1 = [
     },
     {
         "id": 40,
-        "tag": "CASE 40",
+        "tag": "隨堂 8(1)",
         "page": "課本 p.82",
         "category": "綜合應用",
         "title": "代數表示：拆解乘積質因數",
@@ -1004,7 +1004,7 @@ CARDS_PART1 = [
     },
     {
         "id": 41,
-        "tag": "CASE 41",
+        "tag": "隨堂 8(2)",
         "page": "課本 p.82",
         "category": "綜合應用",
         "title": "代數表示：商拆為對數差",
@@ -1027,7 +1027,7 @@ CARDS_PART1 = [
     },
     {
         "id": 42,
-        "tag": "CASE 42",
+        "tag": "隨堂 8(3)",
         "page": "課本 p.82",
         "category": "綜合應用",
         "title": "代數表示：換底公式綜合應用",

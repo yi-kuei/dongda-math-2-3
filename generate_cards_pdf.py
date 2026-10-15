@@ -102,6 +102,7 @@ def generate_printable_html(cards):
     <!-- 頂部頁首 -->
     <div class="flex items-center justify-between pb-2 border-b border-amber-200">
       <div class="flex items-center gap-2">
+        <span class="px-2.5 py-0.5 rounded text-xs font-black bg-blue-900 text-white font-mono">CASE #{card['id']:02d}</span>
         <span class="px-2.5 py-0.5 rounded text-xs font-black bg-amber-600 text-white">{card['tag']}</span>
         <span class="text-sm font-bold text-slate-800">東大版 技術高中數學（第三冊）2-3 對數及其運算的意義</span>
         <span class="px-2 py-0.5 rounded text-xs font-semibold bg-amber-100 text-amber-800">{card['category']} ‧ {card['page']}</span>
