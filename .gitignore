@@ -1,0 +1,9 @@
+desktop.ini
+*.tmp
+~$*
+.env
+*.key
+credentials.*
+__pycache__/
+*.pyc
+.DS_Store
