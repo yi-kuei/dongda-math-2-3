@@ -12,98 +12,106 @@ games_module.py - 東大版 技術高中數學（第三冊）2-3 對數及其運
 """
 
 GAMES_MODAL_HTML = r"""
-  <!-- 彈窗模組 7：5大對數對戰電玩競技場 (Game Arena) -->
-  <div id="game-arena-modal" class="hidden fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-2 sm:p-4">
-    <div class="bg-slate-900 rounded-3xl w-full max-w-6xl h-[92vh] flex flex-col shadow-2xl border-4 border-amber-500 overflow-hidden text-white select-none">
+  <!-- 彈窗模組 7：5大對數對戰電玩競技場 (Game Arena) - 全新無卷軸滿版設計 -->
+  <style>
+    #game-arena-modal * {
+      scrollbar-width: none !important;
+      -ms-overflow-style: none !important;
+    }
+    #game-arena-modal *::-webkit-scrollbar {
+      display: none !important;
+      width: 0 !important;
+      height: 0 !important;
+    }
+  </style>
+  <div id="game-arena-modal" class="hidden fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-1 sm:p-3">
+    <div class="bg-slate-900 rounded-2xl w-full max-w-5xl h-[96vh] sm:h-[92vh] max-h-[820px] flex flex-col shadow-2xl border-2 border-amber-500 overflow-hidden text-white select-none">
       
-      <!-- 頂部競技場標題與控制列 -->
-      <header class="h-16 px-4 sm:px-6 bg-gradient-to-r from-blue-950 via-slate-900 to-red-950 border-b-2 border-amber-500 flex items-center justify-between shrink-0">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-400 to-red-600 flex items-center justify-center text-slate-950 font-black text-xl shadow-lg shadow-amber-500/20">
+      <!-- 頂部競技場標題與控制列 (緊湊高度) -->
+      <header class="h-12 sm:h-14 px-3 sm:px-5 bg-gradient-to-r from-blue-950 via-slate-900 to-red-950 border-b border-amber-500/70 flex items-center justify-between shrink-0">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-400 to-red-600 flex items-center justify-center text-slate-950 font-black text-base shadow-md">
             <i class="fa-solid fa-gamepad text-white"></i>
           </div>
           <div>
             <div class="flex items-center gap-2">
-              <h2 class="text-base sm:text-lg font-black text-amber-300 tracking-tight flex items-center gap-1.5">
+              <h2 class="text-sm sm:text-base font-black text-amber-300 tracking-tight flex items-center gap-1.5">
                 名偵探柯南 ‧ 5大對數對戰電玩競技場
               </h2>
-              <span class="px-2 py-0.5 rounded-full bg-red-600 text-white text-[10px] font-extrabold uppercase animate-pulse">Live Arena</span>
+              <span class="px-1.5 py-0.2 rounded-full bg-red-600 text-white text-[9px] font-extrabold uppercase animate-pulse">Live Arena</span>
             </div>
-            <p class="text-[11px] text-slate-300 hidden sm:block">
-              對數定義速算 ‧ 換底連鎖 ‧ 密室逃脫 ‧ 防禦射擊 ‧ 芮氏能量天平
-            </p>
           </div>
         </div>
 
         <!-- 音效與關閉按鈕 -->
-        <div class="flex items-center gap-2 sm:gap-3">
-          <button id="game-audio-toggle" onclick="toggleGameAudio()" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold text-xs flex items-center gap-1.5 border border-slate-700 transition-all" title="切換遊戲音效">
+        <div class="flex items-center gap-2">
+          <button id="game-audio-toggle" onclick="toggleGameAudio()" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold text-xs flex items-center gap-1 border border-slate-700 transition-all" title="切換遊戲音效">
             <i id="game-audio-icon" class="fa-solid fa-volume-high"></i>
             <span class="hidden md:inline">音效: 開</span>
           </button>
-          <button onclick="closeGameArenaModal()" class="px-3 py-1.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-red-900/50 transition-all" title="返回學習卡總覽 (按 ESC 鍵)">
+          <button onclick="closeGameArenaModal()" class="px-2.5 py-1 rounded-lg bg-red-600 hover:bg-red-500 text-white font-bold text-xs flex items-center gap-1 shadow-sm transition-all" title="返回學習卡總覽 (按 ESC 鍵)">
             <i class="fa-solid fa-xmark"></i>
-            <span>關閉競技場 (ESC)</span>
+            <span>關閉 (ESC)</span>
           </button>
         </div>
       </header>
 
-      <!-- 5大遊戲分頁選單列 -->
-      <nav class="bg-slate-950/80 px-3 sm:px-6 py-2 border-b border-slate-800 flex items-center gap-1.5 sm:gap-2 overflow-x-auto shrink-0 scrollbar-none">
-        <button onclick="switchGame(1)" id="game-tab-1" class="game-nav-btn px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-black transition-all flex items-center gap-2 whitespace-nowrap bg-blue-700 text-white shadow-md">
-          <i class="fa-solid fa-puzzle-piece text-amber-300"></i>
+      <!-- 5大遊戲分頁選單列 (緊湊高度) -->
+      <nav class="bg-slate-950/90 px-3 py-1.5 border-b border-slate-800 flex items-center gap-1 sm:gap-1.5 overflow-x-auto shrink-0 scrollbar-none">
+        <button onclick="switchGame(1)" id="game-tab-1" class="game-nav-btn px-2.5 sm:px-3 py-1 rounded-lg text-xs font-black transition-all flex items-center gap-1.5 whitespace-nowrap bg-blue-700 text-white shadow-sm">
+          <i class="fa-solid fa-puzzle-piece text-amber-300 text-[11px]"></i>
           <span>① 骨牌連鎖消消樂</span>
         </button>
-        <button onclick="switchGame(2)" id="game-tab-2" class="game-nav-btn px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-black transition-all flex items-center gap-2 whitespace-nowrap bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white">
-          <i class="fa-solid fa-lock text-amber-400"></i>
+        <button onclick="switchGame(2)" id="game-tab-2" class="game-nav-btn px-2.5 sm:px-3 py-1 rounded-lg text-xs font-black transition-all flex items-center gap-1.5 whitespace-nowrap bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white">
+          <i class="fa-solid fa-lock text-amber-400 text-[11px]"></i>
           <span>② 密室機關密碼盤</span>
         </button>
-        <button onclick="switchGame(3)" id="game-tab-3" class="game-nav-btn px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-black transition-all flex items-center gap-2 whitespace-nowrap bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white">
-          <i class="fa-solid fa-compass text-emerald-400"></i>
+        <button onclick="switchGame(3)" id="game-tab-3" class="game-nav-btn px-2.5 sm:px-3 py-1 rounded-lg text-xs font-black transition-all flex items-center gap-1.5 whitespace-nowrap bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white">
+          <i class="fa-solid fa-compass text-emerald-400 text-[11px]"></i>
           <span>③ 迷宮雷達尋路戰</span>
         </button>
-        <button onclick="switchGame(4)" id="game-tab-4" class="game-nav-btn px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-black transition-all flex items-center gap-2 whitespace-nowrap bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white">
-          <i class="fa-solid fa-futbol text-rose-400"></i>
+        <button onclick="switchGame(4)" id="game-tab-4" class="game-nav-btn px-2.5 sm:px-3 py-1 rounded-lg text-xs font-black transition-all flex items-center gap-1.5 whitespace-nowrap bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white">
+          <i class="fa-solid fa-futbol text-rose-400 text-[11px]"></i>
           <span>④ 增強鞋射擊防禦戰</span>
         </button>
-        <button onclick="switchGame(5)" id="game-tab-5" class="game-nav-btn px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-black transition-all flex items-center gap-2 whitespace-nowrap bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white">
-          <i class="fa-solid fa-scale-balanced text-amber-400"></i>
+        <button onclick="switchGame(5)" id="game-tab-5" class="game-nav-btn px-2.5 sm:px-3 py-1 rounded-lg text-xs font-black transition-all flex items-center gap-1.5 whitespace-nowrap bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white">
+          <i class="fa-solid fa-scale-balanced text-amber-400 text-[11px]"></i>
           <span>⑤ 芮氏地震能量天平</span>
         </button>
       </nav>
 
-      <!-- 遊戲內容區 (五合一視窗容器) -->
-      <main class="flex-1 bg-slate-900 p-3 sm:p-5 overflow-y-auto relative flex flex-col items-center justify-start">
+      <!-- 遊戲內容區 (五合一視窗容器，固定高度無卷軸) -->
+      <main class="flex-1 bg-slate-900 px-3 py-2 sm:px-5 sm:py-3 overflow-hidden relative flex flex-col items-center justify-center">
         
         <!-- ============================================== -->
         <!-- 遊戲 1：骨牌連鎖消消樂 (Domino Match Duel) -->
         <!-- ============================================== -->
-        <div id="game-panel-1" class="w-full max-w-5xl flex flex-col h-full space-y-3">
+        <div id="game-panel-1" class="w-full max-w-4xl flex flex-col h-full justify-between space-y-2 py-1">
           <!-- 遊戲資訊與模式切換列 -->
-          <div class="bg-slate-800/90 rounded-2xl p-3 border border-slate-700 flex flex-wrap items-center justify-between gap-3 text-xs">
-            <div class="flex items-center gap-2">
-              <span class="px-2.5 py-1 rounded-lg bg-blue-900 text-blue-200 font-bold">遊戲模式：</span>
-              <button onclick="setGame1Mode('1p')" id="g1-mode-1p-btn" class="px-3 py-1 rounded-lg bg-blue-600 text-white font-black">單人極速闖關</button>
-              <button onclick="setGame1Mode('2p')" id="g1-mode-2p-btn" class="px-3 py-1 rounded-lg bg-slate-700 text-slate-300 hover:bg-slate-600 font-black">雙人同屏對決 (P1 vs P2)</button>
+          <div class="bg-slate-800/90 rounded-xl px-3 py-1.5 border border-slate-700 flex flex-wrap items-center justify-between gap-2 text-xs">
+            <div class="flex items-center gap-1.5">
+              <span class="px-2 py-0.5 rounded bg-blue-900 text-blue-200 font-bold text-[11px]">模式：</span>
+              <button onclick="setGame1Mode('1p')" id="g1-mode-1p-btn" class="px-2.5 py-0.5 rounded bg-blue-600 text-white font-black text-xs">單人極速</button>
+              <button onclick="setGame1Mode('2p')" id="g1-mode-2p-btn" class="px-2.5 py-0.5 rounded bg-slate-700 text-slate-300 hover:bg-slate-600 font-black text-xs">雙人對決</button>
             </div>
-            <div class="flex items-center gap-4 font-mono">
-              <div class="text-amber-300 font-bold">倒數：<span id="g1-timer" class="text-lg text-white font-black">60</span>s</div>
-              <div class="text-emerald-400 font-bold">連擊：<span id="g1-combo" class="text-lg text-white font-black">0</span>x</div>
-              <div class="text-rose-400 font-bold">破案積分：<span id="g1-score" class="text-lg text-white font-black">0</span></div>
+            <div class="flex items-center gap-3 font-mono text-xs">
+              <div class="text-amber-300 font-bold">倒數：<span id="g1-timer" class="text-sm text-white font-black">60</span>s</div>
+              <div class="text-emerald-400 font-bold">連擊：<span id="g1-combo" class="text-sm text-white font-black">0</span>x</div>
+              <div class="text-rose-400 font-bold">積分：<span id="g1-score" class="text-sm text-white font-black">0</span></div>
             </div>
-            <button onclick="restartGame1()" class="px-3 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black transition-all flex items-center gap-1.5 shadow-sm">
-              <i class="fa-solid fa-rotate-right"></i> 重新開始
+            <button onclick="restartGame1()" class="px-2.5 py-1 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-black transition-all flex items-center gap-1 text-xs shadow-xs">
+              <i class="fa-solid fa-rotate-right"></i> 重來
             </button>
           </div>
 
           <!-- 遊戲指引提示 -->
-          <div class="text-xs text-slate-400 bg-slate-950/40 px-3 py-1.5 rounded-xl border border-slate-800 flex items-center justify-between">
-            <span><i class="fa-solid fa-lightbulb text-amber-400 mr-1"></i> 點選左欄「對數算式牌」與右欄「數值解」進行配對消消樂，連續正確觸發 Combo 積分狂飆！</span>
-            <span id="g1-status-msg" class="text-amber-300 font-bold">準備就緒，請點選卡牌！</span>
+          <div class="text-[11px] text-slate-400 bg-slate-950/40 px-3 py-1 rounded-lg border border-slate-800 flex items-center justify-between">
+            <span><i class="fa-solid fa-lightbulb text-amber-400 mr-1"></i> 點選「對數式牌」與「數值牌」配對消除，連續正確觸發 Combo 狂飆！</span>
+            <span id="g1-status-msg" class="text-amber-300 font-bold">點選卡牌開始！</span>
           </div>
 
           <!-- 遊戲卡牌主要舞台 (單人 / 雙人對決) -->
-          <div id="g1-board" class="flex-1 min-h-[360px] grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-2.5 p-2 bg-slate-950/60 rounded-2xl border border-slate-800 overflow-y-auto">
+          <div id="g1-board" class="flex-1 min-h-0 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2 p-2 bg-slate-950/60 rounded-xl border border-slate-800 overflow-hidden items-center">
             <!-- 由 JS 動態生成骨牌 -->
           </div>
         </div>
@@ -111,75 +119,75 @@ GAMES_MODAL_HTML = r"""
         <!-- ============================================== -->
         <!-- 遊戲 2：密室機關密碼盤 (Cryptex Escape Room) -->
         <!-- ============================================== -->
-        <div id="game-panel-2" class="hidden w-full max-w-4xl flex flex-col h-full space-y-4">
+        <div id="game-panel-2" class="hidden w-full max-w-2xl flex flex-col h-full justify-between space-y-2 py-1">
           <!-- 關卡進度與逃脫計時 -->
-          <div class="bg-slate-800/90 rounded-2xl p-3 border border-slate-700 flex items-center justify-between text-xs">
+          <div class="bg-slate-800/90 rounded-xl px-3 py-1.5 border border-slate-700 flex items-center justify-between text-xs">
             <div class="flex items-center gap-2">
-              <span class="px-2.5 py-1 rounded-lg bg-amber-500 text-slate-950 font-black">阿笠博士的機關密碼盒</span>
-              <span class="text-slate-300 font-bold">目前進度：第 <span id="g2-stage-idx" class="text-amber-400 font-black text-sm">1</span> / 4 道機關鎖</span>
+              <span class="px-2 py-0.5 rounded-md bg-amber-500 text-slate-950 font-black text-[11px]">阿笠博士機關密碼盒</span>
+              <span class="text-slate-300 font-bold">第 <span id="g2-stage-idx" class="text-amber-400 font-black text-sm">1</span> / 4 道鎖</span>
             </div>
-            <div class="flex items-center gap-3">
-              <span class="text-red-400 font-bold">逃脫剩餘時間：<span id="g2-timer" class="font-mono text-base font-black text-white">90</span> 秒</span>
-              <button onclick="restartGame2()" class="px-3 py-1 rounded-lg bg-slate-700 hover:bg-slate-600 text-white font-bold">重新鎖定</button>
+            <div class="flex items-center gap-2.5">
+              <span class="text-red-400 font-bold">剩餘：<span id="g2-timer" class="font-mono text-sm font-black text-white">90</span>s</span>
+              <button onclick="restartGame2()" class="px-2 py-0.5 rounded-md bg-slate-700 hover:bg-slate-600 text-white font-bold text-[11px]">重新鎖定</button>
             </div>
           </div>
 
-          <!-- 密碼謎題卷宗 -->
-          <div class="bg-slate-950/80 p-5 rounded-2xl border-2 border-amber-500/60 shadow-xl space-y-3">
+          <!-- 密碼謎題卷宗 (精簡高度) -->
+          <div class="bg-slate-950/80 px-4 py-2.5 rounded-xl border border-amber-500/50 shadow-md space-y-1">
             <div class="flex items-center justify-between">
-              <span id="g2-puzzle-badge" class="px-3 py-0.5 rounded-full bg-blue-900 text-amber-300 text-xs font-mono font-bold">STAGE 1 LOCK</span>
-              <span class="text-xs text-slate-400">解出題目後，請撥動下方 3 個金屬密碼輪</span>
+              <span id="g2-puzzle-badge" class="px-2 py-0.2 rounded-full bg-blue-900 text-amber-300 text-[10px] font-mono font-bold">STAGE 1 LOCK</span>
+              <span class="text-[11px] text-slate-400">解出題目後撥動下方 3 個金屬輪盤</span>
             </div>
-            <div id="g2-puzzle-text" class="text-sm sm:text-base font-bold text-slate-100 py-2 leading-relaxed">
+            <div id="g2-puzzle-text" class="text-xs sm:text-sm font-bold text-slate-100 py-1 leading-snug">
               題目載入中...
             </div>
-            <div class="flex items-center justify-between pt-1">
-              <button onclick="toggleG2Hint()" class="text-xs text-amber-400 hover:text-amber-300 font-bold flex items-center gap-1.5 transition-all">
+            <div class="flex items-center justify-between">
+              <button onclick="toggleG2Hint()" class="text-[11px] text-amber-400 hover:text-amber-300 font-bold flex items-center gap-1 transition-all">
                 <i class="fa-solid fa-lightbulb"></i> <span id="g2-hint-toggle-text">查看推理思維線索 (不含答案)</span>
               </button>
             </div>
-            <div id="g2-puzzle-hint" class="hidden text-xs text-amber-300/90 bg-amber-950/40 p-2.5 rounded-xl border border-amber-500/30">
+            <div id="g2-puzzle-hint" class="hidden text-[11px] text-amber-300/90 bg-amber-950/40 p-2 rounded-lg border border-amber-500/30">
               提示情報載入中...
             </div>
           </div>
 
-          <!-- 3D 質感轉輪密碼盤 (Cryptex Dials) -->
-          <div class="flex-1 flex flex-col items-center justify-center p-4 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 rounded-2xl border border-slate-800">
-            <div class="text-xs font-bold text-slate-400 mb-4 tracking-wider uppercase">CRYPTEXT MECHANICAL DIALS</div>
+          <!-- 3D 質感轉輪密碼盤 (Cryptex Dials - 縮小尺寸以完全適配螢幕) -->
+          <div class="flex-1 flex flex-col items-center justify-center py-2 px-3 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 rounded-xl border border-slate-800">
+            <div class="text-[10px] font-bold text-slate-400 mb-2 tracking-wider uppercase">CRYPTEXT MECHANICAL DIALS</div>
             
-            <div class="flex items-center gap-4 sm:gap-8">
+            <div class="flex items-center gap-5 sm:gap-8">
               <!-- 輪盤 1 -->
-              <div class="flex flex-col items-center space-y-2">
-                <button onclick="changeG2Dial(0, 1)" class="w-12 h-8 rounded-lg bg-slate-800 hover:bg-amber-500 hover:text-slate-950 text-white font-black text-sm transition-all"><i class="fa-solid fa-chevron-up"></i></button>
-                <div id="g2-dial-0" class="w-16 h-20 rounded-2xl bg-gradient-to-b from-amber-600 via-yellow-400 to-amber-700 text-slate-950 flex items-center justify-center font-mono font-black text-3xl shadow-2xl border-2 border-white/60">0</div>
-                <button onclick="changeG2Dial(0, -1)" class="w-12 h-8 rounded-lg bg-slate-800 hover:bg-amber-500 hover:text-slate-950 text-white font-black text-sm transition-all"><i class="fa-solid fa-chevron-down"></i></button>
-                <span class="text-[10px] text-slate-400">百位/首數</span>
+              <div class="flex flex-col items-center space-y-1">
+                <button onclick="changeG2Dial(0, 1)" class="w-10 h-6 rounded-md bg-slate-800 hover:bg-amber-500 hover:text-slate-950 text-white font-black text-xs transition-all"><i class="fa-solid fa-chevron-up"></i></button>
+                <div id="g2-dial-0" class="w-12 h-14 rounded-xl bg-gradient-to-b from-amber-600 via-yellow-400 to-amber-700 text-slate-950 flex items-center justify-center font-mono font-black text-2xl shadow-xl border-2 border-white/60">0</div>
+                <button onclick="changeG2Dial(0, -1)" class="w-10 h-6 rounded-md bg-slate-800 hover:bg-amber-500 hover:text-slate-950 text-white font-black text-xs transition-all"><i class="fa-solid fa-chevron-down"></i></button>
+                <span class="text-[9px] text-slate-400">百位/首數</span>
               </div>
 
               <!-- 輪盤 2 -->
-              <div class="flex flex-col items-center space-y-2">
-                <button onclick="changeG2Dial(1, 1)" class="w-12 h-8 rounded-lg bg-slate-800 hover:bg-amber-500 hover:text-slate-950 text-white font-black text-sm transition-all"><i class="fa-solid fa-chevron-up"></i></button>
-                <div id="g2-dial-1" class="w-16 h-20 rounded-2xl bg-gradient-to-b from-amber-600 via-yellow-400 to-amber-700 text-slate-950 flex items-center justify-center font-mono font-black text-3xl shadow-2xl border-2 border-white/60">0</div>
-                <button onclick="changeG2Dial(1, -1)" class="w-12 h-8 rounded-lg bg-slate-800 hover:bg-amber-500 hover:text-slate-950 text-white font-black text-sm transition-all"><i class="fa-solid fa-chevron-down"></i></button>
-                <span class="text-[10px] text-slate-400">十位/值</span>
+              <div class="flex flex-col items-center space-y-1">
+                <button onclick="changeG2Dial(1, 1)" class="w-10 h-6 rounded-md bg-slate-800 hover:bg-amber-500 hover:text-slate-950 text-white font-black text-xs transition-all"><i class="fa-solid fa-chevron-up"></i></button>
+                <div id="g2-dial-1" class="w-12 h-14 rounded-xl bg-gradient-to-b from-amber-600 via-yellow-400 to-amber-700 text-slate-950 flex items-center justify-center font-mono font-black text-2xl shadow-xl border-2 border-white/60">0</div>
+                <button onclick="changeG2Dial(1, -1)" class="w-10 h-6 rounded-md bg-slate-800 hover:bg-amber-500 hover:text-slate-950 text-white font-black text-xs transition-all"><i class="fa-solid fa-chevron-down"></i></button>
+                <span class="text-[9px] text-slate-400">十位/值</span>
               </div>
 
               <!-- 輪盤 3 -->
-              <div class="flex flex-col items-center space-y-2">
-                <button onclick="changeG2Dial(2, 1)" class="w-12 h-8 rounded-lg bg-slate-800 hover:bg-amber-500 hover:text-slate-950 text-white font-black text-sm transition-all"><i class="fa-solid fa-chevron-up"></i></button>
-                <div id="g2-dial-2" class="w-16 h-20 rounded-2xl bg-gradient-to-b from-amber-600 via-yellow-400 to-amber-700 text-slate-950 flex items-center justify-center font-mono font-black text-3xl shadow-2xl border-2 border-white/60">0</div>
-                <button onclick="changeG2Dial(2, -1)" class="w-12 h-8 rounded-lg bg-slate-800 hover:bg-amber-500 hover:text-slate-950 text-white font-black text-sm transition-all"><i class="fa-solid fa-chevron-down"></i></button>
-                <span class="text-[10px] text-slate-400">個位/值</span>
+              <div class="flex flex-col items-center space-y-1">
+                <button onclick="changeG2Dial(2, 1)" class="w-10 h-6 rounded-md bg-slate-800 hover:bg-amber-500 hover:text-slate-950 text-white font-black text-xs transition-all"><i class="fa-solid fa-chevron-up"></i></button>
+                <div id="g2-dial-2" class="w-12 h-14 rounded-xl bg-gradient-to-b from-amber-600 via-yellow-400 to-amber-700 text-slate-950 flex items-center justify-center font-mono font-black text-2xl shadow-xl border-2 border-white/60">0</div>
+                <button onclick="changeG2Dial(2, -1)" class="w-10 h-6 rounded-md bg-slate-800 hover:bg-amber-500 hover:text-slate-950 text-white font-black text-xs transition-all"><i class="fa-solid fa-chevron-down"></i></button>
+                <span class="text-[9px] text-slate-400">個位/值</span>
               </div>
             </div>
 
             <!-- 解鎖按鈕與回饋狀態 -->
-            <div class="mt-6 flex flex-col items-center gap-2">
-              <button onclick="submitG2Unlock()" class="px-8 py-3 rounded-2xl bg-gradient-to-r from-red-600 to-amber-500 hover:from-red-500 hover:to-amber-400 text-white font-black text-sm sm:text-base shadow-xl shadow-red-900/40 flex items-center gap-2 transition-all transform active:scale-95">
+            <div class="mt-2.5 flex flex-col items-center gap-1">
+              <button onclick="submitG2Unlock()" class="px-6 py-1.5 rounded-xl bg-gradient-to-r from-red-600 to-amber-500 hover:from-red-500 hover:to-amber-400 text-white font-black text-xs sm:text-sm shadow-md shadow-red-900/40 flex items-center gap-2 transition-all transform active:scale-95">
                 <i class="fa-solid fa-key text-amber-200"></i>
                 <span>轉動並驗證密碼解鎖</span>
               </button>
-              <div id="g2-feedback" class="text-xs font-bold min-h-[20px] text-slate-400">
+              <div id="g2-feedback" class="text-[11px] font-bold min-h-[16px] text-slate-400">
                 請轉動數字輪盤後點擊解鎖
               </div>
             </div>
@@ -189,45 +197,45 @@ GAMES_MODAL_HTML = r"""
         <!-- ============================================== -->
         <!-- 遊戲 3：迷宮雷達尋路戰 (Maze Runner) -->
         <!-- ============================================== -->
-        <div id="game-panel-3" class="hidden w-full max-w-4xl flex flex-col h-full space-y-3">
+        <div id="game-panel-3" class="hidden w-full max-w-3xl flex flex-col h-full justify-between space-y-2 py-1">
           <!-- 迷宮情報列 -->
-          <div class="bg-slate-800/90 rounded-2xl p-3 border border-slate-700 flex flex-wrap items-center justify-between gap-3 text-xs">
+          <div class="bg-slate-800/90 rounded-xl px-3 py-1.5 border border-slate-700 flex flex-wrap items-center justify-between gap-2 text-xs">
             <div class="flex items-center gap-2">
-              <span class="px-2.5 py-1 rounded-lg bg-emerald-700 text-emerald-100 font-black">迷宮逃脫情報</span>
-              <span class="text-slate-300 font-bold">層數：第 <span id="g3-floor" class="text-emerald-400 font-black">1</span> / 5 層</span>
+              <span class="px-2 py-0.5 rounded bg-emerald-700 text-emerald-100 font-black text-[11px]">迷宮情報</span>
+              <span class="text-slate-300 font-bold">層數：<span id="g3-floor" class="text-emerald-400 font-black">1</span> / 5</span>
             </div>
             <!-- 雷達目標值提示 -->
-            <div class="flex items-center gap-2 bg-slate-950 px-3 py-1 rounded-xl border border-emerald-500/40 animate-pulse">
-              <i class="fa-solid fa-radar text-emerald-400"></i>
-              <span class="text-slate-300 font-bold">徽章雷達暗號目標值：</span>
-              <span id="g3-target-val" class="font-mono text-base font-black text-amber-400">3</span>
+            <div class="flex items-center gap-2 bg-slate-950 px-2.5 py-0.5 rounded-lg border border-emerald-500/40 animate-pulse">
+              <i class="fa-solid fa-radar text-emerald-400 text-xs"></i>
+              <span class="text-slate-300 font-bold text-xs">目標值：</span>
+              <span id="g3-target-val" class="font-mono text-sm font-black text-amber-400">3</span>
             </div>
-            <div class="flex items-center gap-3">
-              <span class="text-rose-400 font-bold">體力：<span id="g3-hp" class="text-base font-black">❤️❤️❤️</span></span>
-              <button onclick="restartGame3()" class="px-3 py-1 rounded-lg bg-slate-700 hover:bg-slate-600 text-white font-bold">重置迷宮</button>
+            <div class="flex items-center gap-2.5">
+              <span class="text-rose-400 font-bold">體力：<span id="g3-hp" class="text-xs font-black">❤️❤️❤️</span></span>
+              <button onclick="restartGame3()" class="px-2 py-0.5 rounded bg-slate-700 hover:bg-slate-600 text-white font-bold text-[11px]">重置</button>
             </div>
           </div>
 
-          <!-- 迷宮 Canvas 畫布與虛擬十字方向盤 -->
-          <div class="flex-1 flex flex-col md:flex-row items-center justify-center gap-4 bg-slate-950 p-4 rounded-2xl border border-slate-800 min-h-[360px]">
+          <!-- 迷宮 Canvas 畫布與虛擬十字方向盤 (精簡緊湊) -->
+          <div class="flex-1 flex flex-col sm:flex-row items-center justify-center gap-3 bg-slate-950 p-2 rounded-xl border border-slate-800 min-h-0">
             <div class="relative flex items-center justify-center">
-              <canvas id="g3-canvas" width="400" height="320" class="bg-slate-900 rounded-xl border-2 border-slate-700 shadow-2xl"></canvas>
+              <canvas id="g3-canvas" width="380" height="240" class="bg-slate-900 rounded-lg border border-slate-700 shadow-md max-w-full h-auto"></canvas>
             </div>
 
             <!-- 控制說明與行動版虛擬十字鍵 -->
-            <div class="flex flex-col items-center justify-center space-y-3">
-              <div class="text-[11px] text-slate-400 text-center max-w-[200px] leading-relaxed">
-                鍵盤按 <kbd class="px-1.5 py-0.5 bg-slate-800 rounded border border-slate-600 text-white font-mono">↑</kbd> <kbd class="px-1.5 py-0.5 bg-slate-800 rounded border border-slate-600 text-white font-mono">↓</kbd> <kbd class="px-1.5 py-0.5 bg-slate-800 rounded border border-slate-600 text-white font-mono">←</kbd> <kbd class="px-1.5 py-0.5 bg-slate-800 rounded border border-slate-600 text-white font-mono">→</kbd> 控制柯南移動，避開巡邏警衛，走進結果等於雷達目標值的傳送門！
+            <div class="flex flex-col items-center justify-center space-y-2">
+              <div class="text-[10px] text-slate-400 text-center max-w-[160px] leading-tight">
+                按方向鍵或虛擬鍵操控柯南，走進等於雷達目標值的傳送門！
               </div>
               
-              <!-- 虛擬按鍵 (觸控手機平板專用) -->
-              <div class="grid grid-cols-3 gap-1.5 w-36">
+              <!-- 虛擬按鍵 -->
+              <div class="grid grid-cols-3 gap-1 w-28">
                 <div></div>
-                <button onclick="moveG3('up')" class="h-10 rounded-xl bg-slate-800 hover:bg-emerald-600 active:bg-emerald-500 text-white font-black text-sm flex items-center justify-center border border-slate-700 shadow-md"><i class="fa-solid fa-arrow-up"></i></button>
+                <button onclick="moveG3('up')" class="h-8 rounded-lg bg-slate-800 hover:bg-emerald-600 active:bg-emerald-500 text-white font-black text-xs flex items-center justify-center border border-slate-700"><i class="fa-solid fa-arrow-up"></i></button>
                 <div></div>
-                <button onclick="moveG3('left')" class="h-10 rounded-xl bg-slate-800 hover:bg-emerald-600 active:bg-emerald-500 text-white font-black text-sm flex items-center justify-center border border-slate-700 shadow-md"><i class="fa-solid fa-arrow-left"></i></button>
-                <button onclick="moveG3('down')" class="h-10 rounded-xl bg-slate-800 hover:bg-emerald-600 active:bg-emerald-500 text-white font-black text-sm flex items-center justify-center border border-slate-700 shadow-md"><i class="fa-solid fa-arrow-down"></i></button>
-                <button onclick="moveG3('right')" class="h-10 rounded-xl bg-slate-800 hover:bg-emerald-600 active:bg-emerald-500 text-white font-black text-sm flex items-center justify-center border border-slate-700 shadow-md"><i class="fa-solid fa-arrow-right"></i></button>
+                <button onclick="moveG3('left')" class="h-8 rounded-lg bg-slate-800 hover:bg-emerald-600 active:bg-emerald-500 text-white font-black text-xs flex items-center justify-center border border-slate-700"><i class="fa-solid fa-arrow-left"></i></button>
+                <button onclick="moveG3('down')" class="h-8 rounded-lg bg-slate-800 hover:bg-emerald-600 active:bg-emerald-500 text-white font-black text-xs flex items-center justify-center border border-slate-700"><i class="fa-solid fa-arrow-down"></i></button>
+                <button onclick="moveG3('right')" class="h-8 rounded-lg bg-slate-800 hover:bg-emerald-600 active:bg-emerald-500 text-white font-black text-xs flex items-center justify-center border border-slate-700"><i class="fa-solid fa-arrow-right"></i></button>
               </div>
             </div>
           </div>
@@ -236,115 +244,115 @@ GAMES_MODAL_HTML = r"""
         <!-- ============================================== -->
         <!-- 遊戲 4：踢力增強鞋射擊防禦戰 (Log Target Defense) -->
         <!-- ============================================== -->
-        <div id="game-panel-4" class="hidden w-full max-w-4xl flex flex-col h-full space-y-3">
+        <div id="game-panel-4" class="hidden w-full max-w-3xl flex flex-col h-full justify-between space-y-2 py-1">
           <!-- 戰場抬頭顯示列 -->
-          <div class="bg-slate-800/90 rounded-2xl p-3 border border-slate-700 flex flex-wrap items-center justify-between gap-3 text-xs">
+          <div class="bg-slate-800/90 rounded-xl px-3 py-1.5 border border-slate-700 flex flex-wrap items-center justify-between gap-2 text-xs">
             <div class="flex items-center gap-2">
-              <span class="px-2.5 py-1 rounded-lg bg-red-700 text-white font-black">阿笠博士超強力腳力增強鞋</span>
-              <span class="text-slate-300 font-bold">波次：WAVE <span id="g4-wave" class="text-amber-400 font-black">1</span></span>
+              <span class="px-2 py-0.5 rounded bg-red-700 text-white font-black text-[11px]">腳力增強鞋防禦</span>
+              <span class="text-slate-300 font-bold">WAVE <span id="g4-wave" class="text-amber-400 font-black">1</span></span>
             </div>
-            <div class="flex items-center gap-4 font-mono">
-              <div class="text-rose-400 font-bold">眼鏡防禦力：<span id="g4-hp" class="text-base text-white font-black">100</span>%</div>
-              <div class="text-amber-300 font-bold">擊落數：<span id="g4-kills" class="text-base text-white font-black">0</span></div>
-              <div class="text-emerald-400 font-bold">防禦積分：<span id="g4-score" class="text-base text-white font-black">0</span></div>
+            <div class="flex items-center gap-3 font-mono text-xs">
+              <div class="text-rose-400 font-bold">耐久：<span id="g4-hp" class="text-sm text-white font-black">100</span>%</div>
+              <div class="text-amber-300 font-bold">擊落：<span id="g4-kills" class="text-sm text-white font-black">0</span></div>
+              <div class="text-emerald-400 font-bold">積分：<span id="g4-score" class="text-sm text-white font-black">0</span></div>
             </div>
-            <button onclick="restartGame4()" class="px-3 py-1 rounded-lg bg-slate-700 hover:bg-slate-600 text-white font-bold">重新出擊</button>
+            <button onclick="restartGame4()" class="px-2 py-0.5 rounded bg-slate-700 hover:bg-slate-600 text-white font-bold text-[11px]">重整</button>
           </div>
 
           <!-- 射擊主畫布 (Canvas) -->
-          <div class="flex-1 relative bg-slate-950 rounded-2xl border-2 border-red-950 overflow-hidden min-h-[340px] flex items-center justify-center">
-            <canvas id="g4-canvas" width="600" height="340" class="w-full h-full block"></canvas>
+          <div class="flex-1 relative bg-slate-950 rounded-xl border border-red-950 overflow-hidden min-h-0 flex items-center justify-center">
+            <canvas id="g4-canvas" width="540" height="240" class="max-w-full h-auto block"></canvas>
             
             <!-- 遊戲結束/開始覆蓋層 -->
-            <div id="g4-overlay" class="hidden absolute inset-0 bg-slate-950/85 backdrop-blur-sm flex flex-col items-center justify-center p-6 text-center z-20">
-              <div class="text-3xl font-black text-rose-500 mb-2" id="g4-gameover-title">防線被突破！</div>
-              <p class="text-xs text-slate-300 mb-4" id="g4-gameover-desc">偵探眼鏡能量耗盡，請重新整裝再戰！</p>
-              <button onclick="startGame4()" class="px-6 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-black text-sm shadow-lg shadow-red-900/50 transition-all">
+            <div id="g4-overlay" class="hidden absolute inset-0 bg-slate-950/85 backdrop-blur-sm flex flex-col items-center justify-center p-4 text-center z-20">
+              <div class="text-2xl font-black text-rose-500 mb-1" id="g4-gameover-title">防線被突破！</div>
+              <p class="text-xs text-slate-300 mb-3" id="g4-gameover-desc">偵探眼鏡能量耗盡！</p>
+              <button onclick="startGame4()" class="px-5 py-2 rounded-xl bg-red-600 hover:bg-red-500 text-white font-black text-xs shadow-md transition-all">
                 再次啟動腳力增強鞋 (Enter)
               </button>
             </div>
           </div>
 
           <!-- 快速踢擊數值按鈕發射盤 -->
-          <div class="bg-slate-800/80 p-2.5 rounded-2xl border border-slate-700 flex flex-wrap items-center justify-center gap-2">
-            <span class="text-xs font-bold text-amber-300 mr-2 flex items-center gap-1">
-              <i class="fa-solid fa-crosshairs"></i> 選擇數值踢出光速足球：
+          <div class="bg-slate-800/80 p-2 rounded-xl border border-slate-700 flex flex-wrap items-center justify-center gap-1.5">
+            <span class="text-[11px] font-bold text-amber-300 mr-1 flex items-center gap-1">
+              <i class="fa-solid fa-crosshairs"></i> 踢擊數值：
             </span>
-            <button onclick="fireG4Val(-2)" class="px-3 py-1.5 rounded-xl bg-slate-700 hover:bg-red-600 active:scale-95 text-white font-mono font-black text-sm border border-slate-600 shadow-sm">-2</button>
-            <button onclick="fireG4Val(-1)" class="px-3 py-1.5 rounded-xl bg-slate-700 hover:bg-red-600 active:scale-95 text-white font-mono font-black text-sm border border-slate-600 shadow-sm">-1</button>
-            <button onclick="fireG4Val(0)" class="px-3 py-1.5 rounded-xl bg-slate-700 hover:bg-red-600 active:scale-95 text-white font-mono font-black text-sm border border-slate-600 shadow-sm">0</button>
-            <button onclick="fireG4Val(1)" class="px-3 py-1.5 rounded-xl bg-slate-700 hover:bg-red-600 active:scale-95 text-white font-mono font-black text-sm border border-slate-600 shadow-sm">1</button>
-            <button onclick="fireG4Val(2)" class="px-3 py-1.5 rounded-xl bg-slate-700 hover:bg-red-600 active:scale-95 text-white font-mono font-black text-sm border border-slate-600 shadow-sm">2</button>
-            <button onclick="fireG4Val(3)" class="px-3 py-1.5 rounded-xl bg-slate-700 hover:bg-red-600 active:scale-95 text-white font-mono font-black text-sm border border-slate-600 shadow-sm">3</button>
-            <button onclick="fireG4Val(4)" class="px-3 py-1.5 rounded-xl bg-slate-700 hover:bg-red-600 active:scale-95 text-white font-mono font-black text-sm border border-slate-600 shadow-sm">4</button>
-            <button onclick="fireG4Val(5)" class="px-3 py-1.5 rounded-xl bg-slate-700 hover:bg-red-600 active:scale-95 text-white font-mono font-black text-sm border border-slate-600 shadow-sm">5</button>
-            <button onclick="fireG4Val(0.5)" class="px-3 py-1.5 rounded-xl bg-slate-700 hover:bg-red-600 active:scale-95 text-white font-mono font-black text-sm border border-slate-600 shadow-sm">1/2</button>
+            <button onclick="fireG4Val(-2)" class="px-2.5 py-1 rounded-lg bg-slate-700 hover:bg-red-600 active:scale-95 text-white font-mono font-black text-xs border border-slate-600">-2</button>
+            <button onclick="fireG4Val(-1)" class="px-2.5 py-1 rounded-lg bg-slate-700 hover:bg-red-600 active:scale-95 text-white font-mono font-black text-xs border border-slate-600">-1</button>
+            <button onclick="fireG4Val(0)" class="px-2.5 py-1 rounded-lg bg-slate-700 hover:bg-red-600 active:scale-95 text-white font-mono font-black text-xs border border-slate-600">0</button>
+            <button onclick="fireG4Val(1)" class="px-2.5 py-1 rounded-lg bg-slate-700 hover:bg-red-600 active:scale-95 text-white font-mono font-black text-xs border border-slate-600">1</button>
+            <button onclick="fireG4Val(2)" class="px-2.5 py-1 rounded-lg bg-slate-700 hover:bg-red-600 active:scale-95 text-white font-mono font-black text-xs border border-slate-600">2</button>
+            <button onclick="fireG4Val(3)" class="px-2.5 py-1 rounded-lg bg-slate-700 hover:bg-red-600 active:scale-95 text-white font-mono font-black text-xs border border-slate-600">3</button>
+            <button onclick="fireG4Val(4)" class="px-2.5 py-1 rounded-lg bg-slate-700 hover:bg-red-600 active:scale-95 text-white font-mono font-black text-xs border border-slate-600">4</button>
+            <button onclick="fireG4Val(5)" class="px-2.5 py-1 rounded-lg bg-slate-700 hover:bg-red-600 active:scale-95 text-white font-mono font-black text-xs border border-slate-600">5</button>
+            <button onclick="fireG4Val(0.5)" class="px-2.5 py-1 rounded-lg bg-slate-700 hover:bg-red-600 active:scale-95 text-white font-mono font-black text-xs border border-slate-600">1/2</button>
           </div>
         </div>
 
         <!-- ============================================== -->
         <!-- 遊戲 5：芮氏地震能量天平 (Earthquake Richter Balancer) -->
         <!-- ============================================== -->
-        <div id="game-panel-5" class="hidden w-full max-w-4xl flex flex-col h-full space-y-3">
+        <div id="game-panel-5" class="hidden w-full max-w-3xl flex flex-col h-full justify-between space-y-2 py-1">
           <!-- 天平控制抬頭 -->
-          <div class="bg-slate-800/90 rounded-2xl p-3 border border-slate-700 flex flex-wrap items-center justify-between gap-3 text-xs">
+          <div class="bg-slate-800/90 rounded-xl px-3 py-1.5 border border-slate-700 flex flex-wrap items-center justify-between gap-2 text-xs">
             <div class="flex items-center gap-2">
-              <span class="px-2.5 py-1 rounded-lg bg-amber-600 text-slate-950 font-black">芮氏地震能量平衡大師</span>
-              <span class="text-slate-300 font-bold">關卡：第 <span id="g5-level" class="text-amber-400 font-black">1</span> / 5 關</span>
+              <span class="px-2 py-0.5 rounded bg-amber-600 text-slate-950 font-black text-[11px]">地震能量平衡</span>
+              <span class="text-slate-300 font-bold">第 <span id="g5-level" class="text-amber-400 font-black text-xs">1</span> / 5 關</span>
             </div>
-            <div class="text-xs text-amber-300 font-mono">
-              能量公式：$\log_{10} E = 4.8 + 1.5M$（請自行換算震級差之能量倍數）
+            <div class="text-[11px] text-amber-300 font-mono">
+              $\log_{10} E = 4.8 + 1.5M$（請自行換算倍率）
             </div>
-            <button onclick="restartGame5()" class="px-3 py-1 rounded-lg bg-slate-700 hover:bg-slate-600 text-white font-bold">新題目</button>
+            <button onclick="restartGame5()" class="px-2 py-0.5 rounded bg-slate-700 hover:bg-slate-600 text-white font-bold text-[11px]">新題目</button>
           </div>
 
           <!-- 天平物理 Canvas 渲染區 -->
-          <div class="flex-1 bg-slate-950 rounded-2xl border border-slate-800 p-3 flex flex-col items-center justify-center relative min-h-[300px]">
-            <canvas id="g5-canvas" width="640" height="260" class="w-full max-w-2xl h-auto block"></canvas>
+          <div class="flex-1 bg-slate-950 rounded-xl border border-slate-800 p-2 flex flex-col items-center justify-center relative min-h-0">
+            <canvas id="g5-canvas" width="560" height="180" class="max-w-full h-auto block"></canvas>
             
             <!-- 實時狀態面板 -->
-            <div class="mt-2 text-center">
-              <div id="g5-balance-status" class="text-xs font-bold text-slate-300">
+            <div class="mt-1 text-center">
+              <div id="g5-balance-status" class="text-[11px] font-bold text-slate-300">
                 請在右側盤加入等效倍率砝碼，使指針回正平衡！
               </div>
             </div>
           </div>
 
           <!-- 砝碼放置操作盤 -->
-          <div class="bg-slate-800/90 p-4 rounded-2xl border border-slate-700 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div class="text-xs space-y-1">
+          <div class="bg-slate-800/90 px-3 py-2 rounded-xl border border-slate-700 flex flex-col sm:flex-row items-center justify-between gap-2">
+            <div class="text-[11px] space-y-0.5">
               <div class="text-slate-300 font-bold">
-                目標：平衡左側 <span id="g5-left-target" class="text-rose-400 font-black font-mono">規模 7.0 地震</span>
+                左側目標：<span id="g5-left-target" class="text-rose-400 font-black font-mono">規模 7.0 地震</span>
               </div>
               <div class="text-slate-400">
-                右盤目前放了：<span id="g5-right-weight" class="text-amber-400 font-black font-mono">0</span> 個 <span id="g5-right-type" class="text-white font-bold">規模 5.0 地震</span>
+                右盤已放：<span id="g5-right-weight" class="text-amber-400 font-black font-mono">0</span> 個 <span id="g5-right-type" class="text-white font-bold">規模 5.0 地震</span>
               </div>
             </div>
 
             <!-- 砝碼按鍵群 -->
-            <div class="flex flex-wrap items-center gap-1.5">
-              <button onclick="addG5Weight(1)" class="px-2.5 py-1.5 rounded-xl bg-slate-700 hover:bg-amber-500 hover:text-slate-950 text-white font-mono font-bold text-xs border border-slate-600 transition-all">+1 個</button>
-              <button onclick="addG5Weight(10)" class="px-2.5 py-1.5 rounded-xl bg-slate-700 hover:bg-amber-500 hover:text-slate-950 text-white font-mono font-bold text-xs border border-slate-600 transition-all">+10 個</button>
-              <button onclick="addG5Weight(31.6)" class="px-2.5 py-1.5 rounded-xl bg-indigo-700 hover:bg-amber-500 hover:text-slate-950 text-white font-mono font-black text-xs border border-indigo-500 transition-all">+31.6 個</button>
-              <button onclick="addG5Weight(100)" class="px-2.5 py-1.5 rounded-xl bg-slate-700 hover:bg-amber-500 hover:text-slate-950 text-white font-mono font-bold text-xs border border-slate-600 transition-all">+100 個</button>
-              <button onclick="addG5Weight(1000)" class="px-2.5 py-1.5 rounded-xl bg-red-700 hover:bg-amber-500 hover:text-slate-950 text-white font-mono font-black text-xs border border-red-500 transition-all">+1000 個</button>
-              <button onclick="addG5Weight(31622)" class="px-2.5 py-1.5 rounded-xl bg-purple-700 hover:bg-amber-500 hover:text-slate-950 text-white font-mono font-black text-xs border border-purple-500 transition-all">+31622 個</button>
-              <button onclick="clearG5Weight()" class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-red-800 text-rose-300 font-bold text-xs border border-slate-600 transition-all">清空右盤</button>
-              <button onclick="verifyG5Balance()" class="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs shadow-md transition-all">確認平衡</button>
+            <div class="flex flex-wrap items-center gap-1">
+              <button onclick="addG5Weight(1)" class="px-2 py-1 rounded bg-slate-700 hover:bg-amber-500 hover:text-slate-950 text-white font-mono font-bold text-xs border border-slate-600">+1</button>
+              <button onclick="addG5Weight(10)" class="px-2 py-1 rounded bg-slate-700 hover:bg-amber-500 hover:text-slate-950 text-white font-mono font-bold text-xs border border-slate-600">+10</button>
+              <button onclick="addG5Weight(31.6)" class="px-2 py-1 rounded bg-indigo-700 hover:bg-amber-500 hover:text-slate-950 text-white font-mono font-black text-xs border border-indigo-500">+31.6</button>
+              <button onclick="addG5Weight(100)" class="px-2 py-1 rounded bg-slate-700 hover:bg-amber-500 hover:text-slate-950 text-white font-mono font-bold text-xs border border-slate-600">+100</button>
+              <button onclick="addG5Weight(1000)" class="px-2 py-1 rounded bg-red-700 hover:bg-amber-500 hover:text-slate-950 text-white font-mono font-black text-xs border border-red-500">+1000</button>
+              <button onclick="addG5Weight(31622)" class="px-2 py-1 rounded bg-purple-700 hover:bg-amber-500 hover:text-slate-950 text-white font-mono font-black text-xs border border-purple-500">+31622</button>
+              <button onclick="clearG5Weight()" class="px-2 py-1 rounded bg-slate-800 hover:bg-red-800 text-rose-300 font-bold text-xs border border-slate-600">清空</button>
+              <button onclick="verifyG5Balance()" class="px-3 py-1 rounded bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs shadow-xs">確認平衡</button>
             </div>
           </div>
         </div>
 
       </main>
 
-      <!-- 頁底競技場狀態列 -->
-      <footer class="h-10 px-6 bg-slate-950 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-400 shrink-0">
+      <!-- 頁底競技場狀態列 (超薄底列) -->
+      <footer class="h-7 sm:h-8 px-4 bg-slate-950 border-t border-slate-800 flex items-center justify-between text-[10px] text-slate-400 shrink-0">
         <span class="flex items-center gap-1.5">
-          <i class="fa-solid fa-trophy text-amber-400"></i>
-          <span>名偵探柯南數理電玩競技場 ‧ 東大高職數學 2-3 專屬開發</span>
+          <i class="fa-solid fa-trophy text-amber-400 text-xs"></i>
+          <span>柯南數理電玩競技場 ‧ 東大高職數學 2-3 專屬開發</span>
         </span>
-        <span class="font-mono text-slate-500">
-          WEB AUDIO SYNTHESIZER READY ‧ 100% OFFLINE
+        <span class="font-mono text-slate-500 hidden sm:inline">
+          NO SCROLLBAR ‧ 100% RESPONSIVE VIEWPORT
         </span>
       </footer>
 
@@ -570,8 +578,8 @@ function restartGame1() {
     cards.forEach(c => {
         const div = document.createElement('div');
         div.id = `g1-card-${c.id}`;
-        div.className = 'g1-tile p-3 bg-slate-800 hover:bg-blue-900 border-2 border-slate-700 rounded-xl flex items-center justify-center text-center cursor-pointer transition-all transform hover:scale-105 active:scale-95 shadow-md min-h-[75px]';
-        div.innerHTML = `<span class="text-sm font-mono font-bold text-slate-100">${c.text}</span>`;
+        div.className = 'g1-tile p-1.5 sm:p-2 bg-slate-800 hover:bg-blue-900 border border-slate-700 rounded-lg flex items-center justify-center text-center cursor-pointer transition-all transform hover:scale-105 active:scale-95 shadow-xs min-h-[46px] sm:min-h-[52px]';
+        div.innerHTML = `<span class="text-xs sm:text-sm font-mono font-bold text-slate-100">${c.text}</span>`;
         div.onclick = () => onCard1Click(c, div);
         board.appendChild(div);
     });
@@ -1325,16 +1333,17 @@ function drawG5() {
     g5Ctx.clearRect(0, 0, g5Canvas.width, g5Canvas.height);
 
     const cx = g5Canvas.width / 2;
-    const cy = 130;
-    const beamLength = 240;
+    const cy = 85;
+    const beamLength = 220;
+    const ropeLen = 42;
 
     // 1. 繪製天平底座與立柱
     g5Ctx.fillStyle = '#334155';
     g5Ctx.beginPath();
-    g5Ctx.moveTo(cx - 30, g5Canvas.height - 20);
-    g5Ctx.lineTo(cx + 30, g5Canvas.height - 20);
-    g5Ctx.lineTo(cx + 10, cy);
-    g5Ctx.lineTo(cx - 10, cy);
+    g5Ctx.moveTo(cx - 24, g5Canvas.height - 10);
+    g5Ctx.lineTo(cx + 24, g5Canvas.height - 10);
+    g5Ctx.lineTo(cx + 8, cy);
+    g5Ctx.lineTo(cx - 8, cy);
     g5Ctx.closePath();
     g5Ctx.fill();
 
@@ -1345,55 +1354,55 @@ function drawG5() {
 
     // 橫梁
     g5Ctx.fillStyle = '#e2e8f0';
-    g5Ctx.fillRect(-beamLength / 2, -6, beamLength, 12);
+    g5Ctx.fillRect(-beamLength / 2, -5, beamLength, 10);
     // 支點鉚釘
     g5Ctx.fillStyle = '#f59e0b';
     g5Ctx.beginPath();
-    g5Ctx.arc(0, 0, 8, 0, Math.PI * 2);
+    g5Ctx.arc(0, 0, 6, 0, Math.PI * 2);
     g5Ctx.fill();
 
     // 左吊盤繩索與盤子
     const lx = -beamLength / 2;
     g5Ctx.strokeStyle = '#94a3b8';
-    g5Ctx.lineWidth = 2;
+    g5Ctx.lineWidth = 1.5;
     g5Ctx.beginPath();
     g5Ctx.moveTo(lx, 0);
-    g5Ctx.lineTo(lx - 25, 60);
+    g5Ctx.lineTo(lx - 20, ropeLen);
     g5Ctx.moveTo(lx, 0);
-    g5Ctx.lineTo(lx + 25, 60);
+    g5Ctx.lineTo(lx + 20, ropeLen);
     g5Ctx.stroke();
     // 左盤
     g5Ctx.fillStyle = '#ef4444';
-    g5Ctx.fillRect(lx - 35, 60, 70, 8);
+    g5Ctx.fillRect(lx - 28, ropeLen, 56, 6);
 
     // 右吊盤繩索與盤子
     const rx = beamLength / 2;
     g5Ctx.beginPath();
     g5Ctx.moveTo(rx, 0);
-    g5Ctx.lineTo(rx - 25, 60);
+    g5Ctx.lineTo(rx - 20, ropeLen);
     g5Ctx.moveTo(rx, 0);
-    g5Ctx.lineTo(rx + 25, 60);
+    g5Ctx.lineTo(rx + 20, ropeLen);
     g5Ctx.stroke();
     // 右盤
     g5Ctx.fillStyle = '#3b82f6';
-    g5Ctx.fillRect(rx - 35, 60, 70, 8);
+    g5Ctx.fillRect(rx - 28, ropeLen, 56, 6);
 
     // 左盤文字砝碼
     g5Ctx.fillStyle = '#ffffff';
-    g5Ctx.font = 'bold 11px sans-serif';
+    g5Ctx.font = 'bold 10px sans-serif';
     g5Ctx.textAlign = 'center';
-    g5Ctx.fillText(`M ${g5LeftM.toFixed(1)}`, lx, 52);
+    g5Ctx.fillText(`M ${g5LeftM.toFixed(1)}`, lx, ropeLen - 5);
 
     // 右盤文字砝碼
     g5Ctx.fillStyle = '#fde047';
-    g5Ctx.fillText(`${g5RightCount} 個`, rx, 52);
+    g5Ctx.fillText(`${g5RightCount} 個`, rx, ropeLen - 5);
 
     g5Ctx.restore();
 
     // 3. 繪製上方指針刻度盤
     g5Ctx.strokeStyle = '#64748b';
     g5Ctx.beginPath();
-    g5Ctx.arc(cx, cy, 35, Math.PI * 1.2, Math.PI * 1.8);
+    g5Ctx.arc(cx, cy, 26, Math.PI * 1.2, Math.PI * 1.8);
     g5Ctx.stroke();
 
     // 刻度指針
@@ -1401,10 +1410,10 @@ function drawG5() {
     g5Ctx.translate(cx, cy);
     g5Ctx.rotate(g5TiltAngle);
     g5Ctx.strokeStyle = '#ef4444';
-    g5Ctx.lineWidth = 3;
+    g5Ctx.lineWidth = 2.5;
     g5Ctx.beginPath();
     g5Ctx.moveTo(0, 0);
-    g5Ctx.lineTo(0, -32);
+    g5Ctx.lineTo(0, -24);
     g5Ctx.stroke();
     g5Ctx.restore();
 }
