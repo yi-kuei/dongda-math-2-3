@@ -22,6 +22,7 @@
 - [x] 階段七：驗收測試與發布打包（產生 `download/`、`start_qr_server.py` 與 `網站上傳包.zip`）
 - [x] 階段八：擴充 5 大對數線上對戰電玩競技場（`games_module.py`，骨牌連鎖、密室逃脫、迷宮尋路、射擊防禦、芮氏天平與 Web Audio API）
 - [x] 階段九：擴充阿笠博士 7 大動態數理實驗室（`lab_experiments_module.py`，底數形變、地震能量、指對鏡射、計算尺、分貝儀、pH 色階、首尾顯微鏡，分頁滿版無卷軸）
+- [x] 階段十：顯示例題與隨堂練習題號、支援頁面全螢幕滿版投影、頁面加寬極小化邊界與大字體升級（`cards_part1.py`、`cards_part2.py`、`generate_full_flipcard_page.py`、`interactive_js_module.py`）
 
 ## 資料夾結構
 ```
