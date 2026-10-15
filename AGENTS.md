@@ -67,7 +67,7 @@
 | 層級 | 平台 | 位置 | 讀取時機 |
 |------|------|------|---------|
 | L1 | 本地（雲端硬碟資料夾） | `AGENTS.md`＋`handoff.md` | 每個 session |
-| L2 | GitHub | `yi-kuei/dongda-math-2-3`（私有） | 指定時 |
+| L2 | GitHub | `yi-kuei/dongda-math-2-3`（公開，已部署 GitHub Pages：https://yi-kuei.github.io/dongda-math-2-3/） | 指定時 |
 | L3 | Obsidian | <未啟用｜這台電腦無 Obsidian MCP 工具> | 有需要時 |
 
 ## 工作約定
