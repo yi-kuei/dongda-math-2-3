@@ -63,13 +63,13 @@
 └── 技術高中東大版數學製作流程 SOP.md                      # 技術高中東大版數學製作流程標準說明書 (v4.0)
 ```
 
-## 同步層級（本專案初始化至第 2 層級）
+## 同步層級（本專案已升級至第 3 層級）
 
 | 層級 | 平台 | 位置 | 讀取時機 |
 |------|------|------|---------|
 | L1 | 本地（雲端硬碟資料夾） | `AGENTS.md`＋`handoff.md` | 每個 session |
 | L2 | GitHub | `yi-kuei/dongda-math-2-3`（公開，已部署 GitHub Pages：https://yi-kuei.github.io/dongda-math-2-3/） | 指定時 |
-| L3 | Obsidian | <未啟用｜這台電腦無 Obsidian MCP 工具> | 有需要時 |
+| L3 | Obsidian | `20261015東大數學2-3/專案工作流程.md`（本地原生通道） | 有需要時 |
 
 ## 工作約定
 - 任何 Agent、任何電腦：**開工先讀 `handoff.md`，收工必更新 `handoff.md`**
