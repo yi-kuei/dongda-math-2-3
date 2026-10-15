@@ -133,7 +133,12 @@ GAMES_MODAL_HTML = r"""
             <div id="g2-puzzle-text" class="text-sm sm:text-base font-bold text-slate-100 py-2 leading-relaxed">
               題目載入中...
             </div>
-            <div id="g2-puzzle-hint" class="text-xs text-amber-300/90 bg-amber-950/40 p-2.5 rounded-xl border border-amber-500/30">
+            <div class="flex items-center justify-between pt-1">
+              <button onclick="toggleG2Hint()" class="text-xs text-amber-400 hover:text-amber-300 font-bold flex items-center gap-1.5 transition-all">
+                <i class="fa-solid fa-lightbulb"></i> <span id="g2-hint-toggle-text">查看推理思維線索 (不含答案)</span>
+              </button>
+            </div>
+            <div id="g2-puzzle-hint" class="hidden text-xs text-amber-300/90 bg-amber-950/40 p-2.5 rounded-xl border border-amber-500/30">
               提示情報載入中...
             </div>
           </div>
@@ -288,7 +293,7 @@ GAMES_MODAL_HTML = r"""
               <span class="text-slate-300 font-bold">關卡：第 <span id="g5-level" class="text-amber-400 font-black">1</span> / 5 關</span>
             </div>
             <div class="text-xs text-amber-300 font-mono">
-              能量公式：$\log_{10} E = 4.8 + 1.5M$（差 1 級差 $10^{1.5} \approx 31.6$ 倍；差 2 級差 $10^3 = 1000$ 倍）
+              能量公式：$\log_{10} E = 4.8 + 1.5M$（請自行換算震級差之能量倍數）
             </div>
             <button onclick="restartGame5()" class="px-3 py-1 rounded-lg bg-slate-700 hover:bg-slate-600 text-white font-bold">新題目</button>
           </div>
@@ -320,9 +325,10 @@ GAMES_MODAL_HTML = r"""
             <div class="flex flex-wrap items-center gap-1.5">
               <button onclick="addG5Weight(1)" class="px-2.5 py-1.5 rounded-xl bg-slate-700 hover:bg-amber-500 hover:text-slate-950 text-white font-mono font-bold text-xs border border-slate-600 transition-all">+1 個</button>
               <button onclick="addG5Weight(10)" class="px-2.5 py-1.5 rounded-xl bg-slate-700 hover:bg-amber-500 hover:text-slate-950 text-white font-mono font-bold text-xs border border-slate-600 transition-all">+10 個</button>
-              <button onclick="addG5Weight(31.6)" class="px-2.5 py-1.5 rounded-xl bg-indigo-700 hover:bg-amber-500 hover:text-slate-950 text-white font-mono font-black text-xs border border-indigo-500 transition-all">+31.6 (約1級)</button>
+              <button onclick="addG5Weight(31.6)" class="px-2.5 py-1.5 rounded-xl bg-indigo-700 hover:bg-amber-500 hover:text-slate-950 text-white font-mono font-black text-xs border border-indigo-500 transition-all">+31.6 個</button>
               <button onclick="addG5Weight(100)" class="px-2.5 py-1.5 rounded-xl bg-slate-700 hover:bg-amber-500 hover:text-slate-950 text-white font-mono font-bold text-xs border border-slate-600 transition-all">+100 個</button>
-              <button onclick="addG5Weight(1000)" class="px-2.5 py-1.5 rounded-xl bg-red-700 hover:bg-amber-500 hover:text-slate-950 text-white font-mono font-black text-xs border border-red-500 transition-all">+1000 (剛好2級)</button>
+              <button onclick="addG5Weight(1000)" class="px-2.5 py-1.5 rounded-xl bg-red-700 hover:bg-amber-500 hover:text-slate-950 text-white font-mono font-black text-xs border border-red-500 transition-all">+1000 個</button>
+              <button onclick="addG5Weight(31622)" class="px-2.5 py-1.5 rounded-xl bg-purple-700 hover:bg-amber-500 hover:text-slate-950 text-white font-mono font-black text-xs border border-purple-500 transition-all">+31622 個</button>
               <button onclick="clearG5Weight()" class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-red-800 text-rose-300 font-bold text-xs border border-slate-600 transition-all">清空右盤</button>
               <button onclick="verifyG5Balance()" class="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs shadow-md transition-all">確認平衡</button>
             </div>
@@ -656,28 +662,41 @@ const G2_PUZZLES = [
     {
         badge: 'STAGE 1 ‧ 存在條件',
         text: '若 $\\log_{x-2}(7-x)$ 有意義，且 $x$ 為整數，試問符合條件的 $x$ 最大值為多少？（密碼為此整數值）',
-        hint: '底數條件 $x-2>0$ 且 $x-2 \\neq 1 \\implies x>2, x \\neq 3$；真數條件 $7-x>0 \\implies x<7$。整數解為 4, 5, 6，最大值為 6（轉輪請轉為 006）。',
+        hint: '推理線索：底數必須滿足「大於 0 且不等於 1」，真數必須滿足「大於 0」。請先列出不等式求解 $x$ 之容許範圍，再從該範圍內的整數解找出最大者。',
         ans: [0, 0, 6]
     },
     {
         badge: 'STAGE 2 ‧ 對數加減化簡',
         text: '計算 $\\log_2 48 + \\log_2 3 - \\log_2 9$ 之化簡整數值。（密碼為此數值）',
-        hint: '利用同底運算法則：$\\log_2(\\frac{48 \\times 3}{9}) = \\log_2(\\frac{144}{9}) = \\log_2 16 = 4$（轉輪請轉為 004）。',
+        hint: '推理線索：同底對數運算法則——「真數相乘對數相加，真數相除對數相減」。可將原式合併為單一對數進行化簡約分求值。',
         ans: [0, 0, 4]
     },
     {
         badge: 'STAGE 3 ‧ 換底公式連鎖律',
         text: '計算 $(\\log_2 3 + \\log_4 9)(\\log_3 4 + \\log_9 2)$ 之值。（密碼為此數值）',
-        hint: '$\\log_4 9 = \\log_2 3$，故前括號為 $2\\log_2 3$；後括號為 $2\\log_3 2 + \\frac{1}{2}\\log_3 2 = \\frac{5}{2}\\log_3 2$ 或標準簡化為 3（轉輪請轉為 003）。',
+        hint: '推理線索：運用次方提出法則 $\\log_{a^r} b^s = \\frac{s}{r}\\log_a b$ 將各項底數化為最簡質數，再利用分配律展開並運用倒數關係 $(\\log_a b)(\\log_b a) = 1$。',
         ans: [0, 0, 3]
     },
     {
         badge: 'STAGE 4 ‧ 首數與位數估算',
         text: '已知 $\\log_{10} 2 \\approx 0.3010$，試求 $2^{30}$ 為幾位數？（密碼為位數數值）',
-        hint: '$\\log_{10}(2^{30}) = 30 \\times 0.3010 = 9.03$。首數為 9，位數為 $9+1 = 10$ 位數（轉輪請轉為 010）。',
+        hint: '推理線索：取常用對數 $\\log_{10}(2^{30}) = 30 \\times \\log_{10} 2$。正數的常用對數若首數為 $n$，則此數在十進位制中為 $n+1$ 位數。',
         ans: [0, 1, 0]
     }
 ];
+
+function toggleG2Hint() {
+    const hintEl = document.getElementById('g2-puzzle-hint');
+    const textEl = document.getElementById('g2-hint-toggle-text');
+    if (!hintEl) return;
+    if (hintEl.classList.contains('hidden')) {
+        hintEl.classList.remove('hidden');
+        if (textEl) textEl.innerText = '隱藏思維線索';
+    } else {
+        hintEl.classList.add('hidden');
+        if (textEl) textEl.innerText = '查看推理思維線索 (不含答案)';
+    }
+}
 
 function restartGame2() {
     if (g2TimerInterval) clearInterval(g2TimerInterval);
@@ -703,14 +722,26 @@ function loadG2Puzzle() {
     document.getElementById('g2-stage-idx').innerText = g2Stage + 1;
     document.getElementById('g2-puzzle-badge').innerText = p.badge;
     document.getElementById('g2-puzzle-text').innerHTML = p.text;
-    document.getElementById('g2-puzzle-hint').innerHTML = `<strong>情報提示：</strong>${p.hint}`;
+    
+    // 預設隱藏提示，且清空為純思考導引
+    const hintEl = document.getElementById('g2-puzzle-hint');
+    const textEl = document.getElementById('g2-hint-toggle-text');
+    if (hintEl) {
+        hintEl.classList.add('hidden');
+        hintEl.innerHTML = `<strong>思維線索：</strong>${p.hint}`;
+    }
+    if (textEl) {
+        textEl.innerText = '查看推理思維線索 (不含答案)';
+    }
+
     document.getElementById('g2-feedback').innerHTML = '請撥動輪盤對準密碼，按下解鎖！';
 
-    const textEl = document.getElementById('g2-puzzle-text');
-    const hintEl = document.getElementById('g2-puzzle-hint');
+    const pTextEl = document.getElementById('g2-puzzle-text');
     if (window.renderMathInElement) {
-        renderMathInElement(textEl, { delimiters: [{ left: '$', right: '$', display: false }] });
-        renderMathInElement(hintEl, { delimiters: [{ left: '$', right: '$', display: false }] });
+        renderMathInElement(pTextEl, { delimiters: [{ left: '$', right: '$', display: false }] });
+        if (hintEl) {
+            renderMathInElement(hintEl, { delimiters: [{ left: '$', right: '$', display: false }] });
+        }
     }
 }
 
@@ -1234,11 +1265,11 @@ let g5Ctx = null;
 let g5TiltAngle = -0.25; // 負代表左邊重
 
 const G5_LEVELS = [
-    { leftM: 7.0, rightM: 5.0, diff: 2.0, ratio: 1000, desc: '規模 7.0 vs 規模 5.0（差 2 級，能量差 1000 倍）' },
-    { leftM: 6.0, rightM: 5.0, diff: 1.0, ratio: 31.6, desc: '規模 6.0 vs 規模 5.0（差 1 級，能量差 10^1.5 ≈ 31.6 倍）' },
-    { leftM: 7.0, rightM: 6.0, diff: 1.0, ratio: 31.6, desc: '規模 7.0 vs 規模 6.0（差 1 級，能量差 10^1.5 ≈ 31.6 倍）' },
-    { leftM: 8.0, rightM: 6.0, diff: 2.0, ratio: 1000, desc: '規模 8.0 vs 規模 6.0（差 2 級，能量差 1000 倍）' },
-    { leftM: 7.0, rightM: 4.0, diff: 3.0, ratio: 31622, desc: '規模 7.0 vs 規模 4.0（差 3 級，能量差 10^4.5 ≈ 31622 倍）' }
+    { leftM: 7.0, rightM: 5.0, diff: 2.0, ratio: 1000, desc: '規模 7.0 vs 規模 5.0（請計算震級差換算能量倍率）' },
+    { leftM: 6.0, rightM: 5.0, diff: 1.0, ratio: 31.6, desc: '規模 6.0 vs 規模 5.0（請計算震級差換算能量倍率）' },
+    { leftM: 7.0, rightM: 6.0, diff: 1.0, ratio: 31.6, desc: '規模 7.0 vs 規模 6.0（請計算震級差換算能量倍率）' },
+    { leftM: 8.0, rightM: 6.0, diff: 2.0, ratio: 1000, desc: '規模 8.0 vs 規模 6.0（請計算震級差換算能量倍率）' },
+    { leftM: 7.0, rightM: 4.0, diff: 3.0, ratio: 31622, desc: '規模 7.0 vs 規模 4.0（請計算震級差換算能量倍率）' }
 ];
 
 function restartGame5() {
