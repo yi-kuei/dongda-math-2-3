@@ -32,4 +32,4 @@
 ## 🕐 最後更新
 - 時間：2026-10-16 17:10
 - 更新者：Antigravity @ DESKTOP-KUEI
-- Git push：待推（已更新 AGENTS.md, handoff.md, deploy_to_ecourse.py）
+- Git push：✅ 已推（main 最新）
