@@ -23,6 +23,7 @@
 - [x] 階段八：擴充 5 大對數線上對戰電玩競技場（`games_module.py`，骨牌連鎖、密室逃脫、迷宮尋路、射擊防禦、芮氏天平與 Web Audio API）
 - [x] 階段九：擴充阿笠博士 7 大動態數理實驗室（`lab_experiments_module.py`，底數形變、地震能量、指對鏡射、計算尺、分貝儀、pH 色階、首尾顯微鏡，分頁滿版無卷軸）
 - [x] 階段十：顯示例題與隨堂練習題號、支援頁面全螢幕滿版投影、頁面加寬極小化邊界與大字體升級（`cards_part1.py`、`cards_part2.py`、`generate_full_flipcard_page.py`、`interactive_js_module.py`）
+- [ ] 階段十一：網易資訊虛擬主機（`http://ecourse.idv.tw/dongda3/math-2-3/`）自動部署（已建置 `deploy_to_ecourse.py`，待填入 cPanel/FTP 帳號密碼後執行）
 
 ## 資料夾結構
 ```
@@ -56,6 +57,7 @@
 │   ├── generate_cards_pdf.py                           # Edge Headless 高解析 PDF 編譯器
 │   ├── generate_full_flipcard_page.py                  # index.html 單檔平台編譯器
 │   ├── package_for_web.py                              # 發布打包與 download/ 歸檔腳本
+│   ├── deploy_to_ecourse.py                            # 網易資訊 (ecourse.idv.tw) 自動 FTP 部署腳本
 │   └── start_qr_server.py                              # 手機平板掃碼連線伺服器
 ├── 啟動手機掃碼連線伺服器.bat                            # Windows 雙擊一鍵啟動連線腳本
 ├── AGENTS.md                                           # 專案藍圖（本檔）
