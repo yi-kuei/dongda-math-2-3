@@ -108,7 +108,7 @@ def main():
     url = f"http://{host}/{target_dir}/"
     print(f"\n🎉 全部檔案上傳完畢！正在驗證線上網址: {url}")
     try:
-        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"})
         with urllib.request.urlopen(req, timeout=15) as resp:
             print(f"🌐 HTTP 狀態碼: {resp.status} OK — 網站已正式上線！")
     except Exception as e:
